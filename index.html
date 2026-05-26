@@ -3,31 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AutoFin — מכונאות חכמה</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>AutoFin</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{
-  --navy:#0B1F3A;
-  --gold:#C9A84C;
-  --surface:#F4F3EF;
-  --white:#FFFFFF;
-  --tp:#0B1F3A;
-  --ts:#5A6A7E;
-  --tm:#9AAAB8;
-  --border:#E0DEDA;
-  --red:#C0392B;
-  --green:#1A7A4A;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Heebo',sans-serif;background:var(--surface);color:var(--tp);direction:rtl}
-.nav{background:var(--navy);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
-.logo{color:var(--gold);font-size:1.6rem;font-weight:900}
-.logo em{color:white}
-.wrap{max-width:1240px;margin:0 auto;padding:2rem}
-.title{font-size:2rem;font-weight:900;margin-bottom:2rem}
-.cars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem}
-.car-card{background:white;border-radius:16px;overflow:hidden;border:1px solid var(--border)}
-.car-img{width:100%;height:220px;object-fit:cover;background:#ccc}
-.car-body{padding:1.5rem}
-.car-name{font-size:1.2rem;font-weight:800;margin-bottom:.5rem}
-.car-meta{font-size:
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Heebo',sans-serif;background:#f5f5f5;direction:rtl;padding:2rem}
+.container{max-width:1200px;margin:0 auto}
+h1{margin-bottom:2rem;color:#0b1f3a}
+.cars{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem}
+.car{background:white;border-radius:12px;overflow:hidden;border:1px solid #ddd}
+.car-img{width:100%;height:200px;object-fit:cover;background:#ccc}
+.car-info{padding:1.5rem}
+.car-name{font-size:1.1rem;font-weight:700;margin-bottom:.5rem}
+.car-meta{font-size:.85rem;color:#666;margin-bottom:1rem}
+.car-price{font-size:1.3rem;font-weight:900;color:#0b1f3a}
+.loading{text-align:center;padding:3rem;color:#999}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🚗 קטלוג רכבים</h1>
+  <div id="cars" class="cars loading">טוען...</div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCUC4ConlLR7nONsqECFc_8S5_rO9oiwuQ",
+  authDomain: "car-sales-7ddec.firebaseapp.com",
+  databaseURL: "https://car-sales-7ddec-default-rtdb.firebaseio.com",
+  projectId: "car-sales-7ddec",
+  storageBucket: "car-sales-7ddec.firebasestorage.app",
+  messagingSenderId: "360924922585",
+  appId: "1:360924922585:web:0f18b076fff3e82460f4c8"
+};
+
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+db.ref('cars').on('value', function(snapshot) {
+  const data = snapshot.val();
+  const container = document.getElementById('cars');
+  
+  if (!data) {
+    container.innerHTML = '<p style="grid-column:1/-1;text-align:center">אין רכבים</p>';
+    return;
+  }
+
+  let html = '';
+  for (let key in data) {
+    const car = data[key];
+    html += `
+      <div class="car">
+        <img src="${car.image_url || ''}" alt="${car.name}" class="car-img">
+        <div class="car-info">
+          <div class="car-name">${car.name}</div>
+          <div class="car-meta">${car.year} · ${car.engine} · ${car.km} ק"מ</div>
+          <div class="car-price">₪ ${parseInt(car.price).toLocaleString('he-IL')}</div>
+        </div>
+      </div>
+    `;
+  }
+  
+  container.classList.remove('loading');
+  container.innerHTML = html;
+});
+</script>
+</body>
+</html>
