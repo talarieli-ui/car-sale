@@ -20,80 +20,14 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Heebo',sans-serif;background:var(--surface);color:var(--tp);direction:rtl}
-.nav{background:var(--navy);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:100}
+.nav{background:var(--navy);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem}
 .logo{color:var(--gold);font-size:1.6rem;font-weight:900}
 .logo em{color:white}
 .wrap{max-width:1240px;margin:0 auto;padding:2rem}
-.cars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:2rem;margin-top:2rem}
-.car-card{background:white;border-radius:16px;overflow:hidden;border:1px solid var(--border);transition:transform .2s}
-.car-card:hover{transform:translateY(-4px)}
-.car-img{width:100%;height:250px;object-fit:cover;display:block;background:#000}
+.title{font-size:2rem;font-weight:900;margin-bottom:2rem}
+.cars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem}
+.car-card{background:white;border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+.car-img{width:100%;height:220px;object-fit:cover;background:#ccc}
 .car-body{padding:1.5rem}
-.car-name{font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:.5rem}
-.car-meta{font-size:.9rem;color:var(--ts);margin-bottom:1rem}
-.car-price{font-size:1.5rem;font-weight:900;color:var(--navy);margin-bottom:1rem}
-.car-btn{width:100%;padding:12px;background:var(--gold);color:var(--navy);border:none;border-radius:8px;cursor:pointer;font-weight:800;transition:background .2s}
-.car-btn:hover{background:#d9b558}
-.loading{text-align:center;padding:2rem;font-size:1.2rem;color:var(--ts)}
-.empty{text-align:center;padding:2rem;color:var(--ts)}
-</style>
-</head>
-<body>
-<nav class="nav">
-  <div class="logo">אוטו<em>פין</em></div>
-</nav>
-
-<div class="wrap">
-  <h1>🚗 קטלוג רכבים</h1>
-  <div id="carsContainer" class="loading">טוען רכבים...</div>
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js"></script>
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyCUC4ConlLR7nONsqECFc_8S5_rO9oiwuQ",
-  authDomain: "car-sales-7ddec.firebaseapp.com",
-  databaseURL: "https://car-sales-7ddec-default-rtdb.firebaseio.com",
-  projectId: "car-sales-7ddec",
-  storageBucket: "car-sales-7ddec.firebasestorage.app",
-  messagingSenderId: "360924922585",
-  appId: "1:360924922585:web:0f18b076fff3e82460f4c8"
-}
-
-firebase.initializeApp(firebaseConfig)
-const db = firebase.database()
-
-const container = document.getElementById('carsContainer')
-
-db.ref('cars').on('value', (snapshot) => {
-  const data = snapshot.val()
-  
-  if (!data) {
-    container.innerHTML = '<div class="empty">אין רכבים זמינים כרגע</div>'
-    return
-  }
-
-  let html = '<div class="cars-grid">'
-  
-  Object.keys(data).forEach(key => {
-    const car = data[key]
-    html += `
-      <div class="car-card">
-        ${car.image_url ? `<img src="${car.image_url}" alt="${car.name}" class="car-img">` : ''}
-        <div class="car-body">
-          <div class="car-name">${car.name}</div>
-          <div class="car-meta">${car.year} · ${car.engine} · ${car.km} ק"מ</div>
-          <div class="car-price">₪ ${car.price?.toLocaleString('he-IL')}</div>
-          <button class="car-btn" onclick="alert('בקרוב: דף מימון מלא')">עוד פרטים</button>
-        </div>
-      </div>
-    `
-  })
-  
-  html += '</div>'
-  container.innerHTML = html
-})
-</script>
-</body>
-</html>
+.car-name{font-size:1.2rem;font-weight:800;margin-bottom:.5rem}
+.car-meta{font-size:
