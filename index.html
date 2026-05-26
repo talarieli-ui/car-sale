@@ -14,69 +14,88 @@ body{font-family:'Heebo',sans-serif;background:#F4F3EF;color:#0B1F3A;direction:r
 .wrap{max-width:1240px;margin:0 auto;padding:2rem}
 h1{font-size:2rem;margin-bottom:2rem;font-weight:900}
 .cars{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2rem}
+
+/* CARD */
 .car{background:white;border-radius:16px;overflow:hidden;border:1px solid #E0DEDA;transition:transform .3s,box-shadow .3s;cursor:pointer}
 .car:hover{transform:translateY(-6px);box-shadow:0 12px 32px rgba(0,0,0,.12)}
-.car-img{width:100%;height:220px;object-fit:cover;background:#ddd;display:block}
+.card-gallery{position:relative;width:100%;height:220px;overflow:hidden;background:#ddd}
+.card-gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .3s}
+.card-arrow{position:absolute;top:50%;transform:translateY(-50%);width:32px;height:32px;background:rgba(255,255,255,.85);border:none;border-radius:50%;cursor:pointer;font-size:16px;font-weight:bold;color:#0B1F3A;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);z-index:2;opacity:0;transition:opacity .2s}
+.car:hover .card-arrow{opacity:1}
+.card-arrow.r{right:8px}
+.card-arrow.l{left:8px}
+.card-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:2}
+.card-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5);border:none;cursor:pointer;padding:0;transition:background .2s}
+.card-dot.on{background:#C9A84C}
+.img-count{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);color:white;padding:2px 10px;border-radius:20px;font-size:.75rem;z-index:2}
 .car-info{padding:1.5rem}
 .car-name{font-size:1.2rem;font-weight:800;margin-bottom:.4rem}
 .car-meta{font-size:.85rem;color:#5A6A7E;margin-bottom:.8rem}
 .car-price{font-size:1.5rem;font-weight:900;color:#0B1F3A}
 .car-badge{display:inline-block;background:#E8F5E9;color:#1A7A4A;padding:2px 10px;border-radius:20px;font-size:.75rem;font-weight:600;margin-top:.5rem}
-.img-count{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.6);color:white;padding:3px 10px;border-radius:20px;font-size:.75rem}
-.car-thumb{position:relative}
 .loading{text-align:center;padding:4rem;font-size:1.2rem;color:#5A6A7E}
 
 /* MODAL */
-.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:1000;justify-content:center;align-items:flex-start;padding:2rem;overflow-y:auto;backdrop-filter:blur(4px)}
-.modal-overlay.active{display:flex}
-.modal{background:white;border-radius:20px;max-width:900px;width:100%;overflow:hidden;animation:modalIn .4s ease;position:relative;margin:auto}
-@keyframes modalIn{from{opacity:0;transform:translateY(40px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
-.modal-close{position:absolute;top:16px;right:16px;width:40px;height:40px;background:rgba(0,0,0,.5);border:none;border-radius:50%;color:white;font-size:24px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:1000;overflow-y:auto;backdrop-filter:blur(4px)}
+.modal-overlay.active{display:block}
+.modal{background:white;border-radius:20px;max-width:800px;width:92%;overflow:hidden;animation:modalIn .4s ease;position:relative;margin:20px auto}
+@keyframes modalIn{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal-close{position:absolute;top:12px;right:12px;width:36px;height:36px;background:rgba(0,0,0,.5);border:none;border-radius:50%;color:white;font-size:20px;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center}
 .modal-close:hover{background:rgba(0,0,0,.8)}
 
-/* MODAL GALLERY */
-.modal-gallery{position:relative;width:100%;height:400px;background:#111;overflow:hidden}
-.modal-gallery img{width:100%;height:100%;object-fit:contain;display:block;transition:opacity .3s}
-.modal-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;background:rgba(255,255,255,.9);border:none;border-radius:50%;cursor:pointer;font-size:22px;font-weight:bold;color:#0B1F3A;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,.2);transition:all .2s;z-index:5}
+.modal-gallery{position:relative;width:100%;height:50vw;max-height:400px;background:#111;overflow:hidden}
+.modal-gallery img{width:100%;height:100%;object-fit:contain;display:block}
+.modal-arrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;background:rgba(255,255,255,.9);border:none;border-radius:50%;cursor:pointer;font-size:20px;font-weight:bold;color:#0B1F3A;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.2);z-index:5}
 .modal-arrow:hover{background:white;transform:translateY(-50%) scale(1.1)}
-.modal-arrow.right{right:12px}
-.modal-arrow.left{left:12px}
-.modal-counter{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:white;padding:4px 14px;border-radius:20px;font-size:.85rem}
-.modal-thumbs{display:flex;gap:6px;padding:12px;background:#f5f5f5;overflow-x:auto}
-.modal-thumbs img{width:70px;height:50px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:.5;transition:all .2s;border:2px solid transparent;flex-shrink:0}
+.modal-arrow.right{right:10px}
+.modal-arrow.left{left:10px}
+.modal-counter{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:white;padding:3px 12px;border-radius:20px;font-size:.8rem}
+.modal-thumbs{display:flex;gap:5px;padding:10px;background:#f5f5f5;overflow-x:auto}
+.modal-thumbs img{width:60px;height:45px;object-fit:cover;border-radius:5px;cursor:pointer;opacity:.4;transition:all .2s;border:2px solid transparent;flex-shrink:0}
 .modal-thumbs img.active{opacity:1;border-color:#C9A84C}
-.modal-thumbs img:hover{opacity:.8}
+.modal-thumbs img:hover{opacity:.7}
 
-/* MODAL BODY */
-.modal-body{padding:2rem}
-.modal-name{font-size:1.8rem;font-weight:900;margin-bottom:.5rem;animation:fadeUp .5s ease .1s both}
-.modal-meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;animation:fadeUp .5s ease .2s both}
-.meta-item{background:#F4F3EF;border-radius:12px;padding:1rem;text-align:center}
-.meta-item .label{font-size:.75rem;color:#5A6A7E;margin-bottom:.3rem}
-.meta-item .value{font-size:1.1rem;font-weight:700}
-.modal-desc{font-size:1rem;line-height:1.8;color:#444;margin-bottom:1.5rem;padding:1.2rem;background:#FAFAFA;border-radius:12px;border-right:4px solid #C9A84C;animation:fadeUp .5s ease .3s both}
-.modal-price-row{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;animation:fadeUp .5s ease .35s both}
-.modal-price{font-size:2rem;font-weight:900;color:#0B1F3A}
+.modal-body{padding:1.5rem}
+.modal-name{font-size:1.5rem;font-weight:900;margin-bottom:.8rem;animation:fadeUp .4s ease .1s both}
+.modal-meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.2rem;animation:fadeUp .4s ease .15s both}
+.meta-item{background:#F4F3EF;border-radius:10px;padding:.8rem;text-align:center}
+.meta-item .label{font-size:.7rem;color:#5A6A7E;margin-bottom:.2rem}
+.meta-item .value{font-size:1rem;font-weight:700}
+.modal-desc{font-size:.95rem;line-height:1.7;color:#444;margin-bottom:1.2rem;padding:1rem;background:#FAFAFA;border-radius:10px;border-right:3px solid #C9A84C;animation:fadeUp .4s ease .2s both}
+.modal-price{font-size:1.8rem;font-weight:900;color:#0B1F3A;margin-bottom:1.2rem;animation:fadeUp .4s ease .25s both}
 
-.modal-finance{background:#F4F3EF;border-radius:16px;padding:1.5rem;animation:fadeUp .5s ease .4s both}
-.modal-finance h3{font-size:1.1rem;font-weight:700;margin-bottom:1rem}
-.mf-label{font-size:.85rem;color:#5A6A7E;margin-bottom:.5rem;display:flex;justify-content:space-between}
-.mf-slider{width:100%;-webkit-appearance:none;appearance:none;height:8px;background:linear-gradient(90deg,#C9A84C 50%,#E0DEDA 50%);border-radius:4px;outline:none;cursor:pointer;margin-bottom:1rem}
-.mf-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#C9A84C;cursor:pointer;border:3px solid #0B1F3A;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.mf-result{display:flex;justify-content:space-between;align-items:center;padding:1rem;background:white;border-radius:12px}
-.mf-monthly{font-size:1.6rem;font-weight:900;color:#C9A84C}
-.mf-total{font-size:.85rem;color:#999}
+.modal-finance{background:#F4F3EF;border-radius:14px;padding:1.2rem;animation:fadeUp .4s ease .3s both}
+.modal-finance h3{font-size:1rem;font-weight:700;margin-bottom:.8rem}
+.mf-label{font-size:.8rem;color:#5A6A7E;margin-bottom:.4rem;display:flex;justify-content:space-between}
+.mf-slider{width:100%;-webkit-appearance:none;appearance:none;height:6px;background:#E0DEDA;border-radius:3px;outline:none;cursor:pointer;margin-bottom:.8rem}
+.mf-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#C9A84C;cursor:pointer;border:2px solid #0B1F3A}
+.mf-result{display:flex;justify-content:space-between;align-items:center;padding:.8rem;background:white;border-radius:10px}
+.mf-monthly{font-size:1.3rem;font-weight:900;color:#C9A84C}
+.mf-total{font-size:.8rem;color:#999}
 
-.modal-cta{width:100%;padding:16px;background:#C9A84C;color:#0B1F3A;border:none;border-radius:12px;font-size:1.1rem;font-weight:800;cursor:pointer;margin-top:1.5rem;transition:all .2s;animation:fadeUp .5s ease .5s both}
+.modal-cta{width:100%;padding:14px;background:#C9A84C;color:#0B1F3A;border:none;border-radius:10px;font-size:1rem;font-weight:800;cursor:pointer;margin-top:1.2rem;transition:all .2s;animation:fadeUp .4s ease .35s both}
 .modal-cta:hover{background:#d9b558;transform:scale(1.02)}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 
-@media(max-width:600px){
-  .modal-gallery{height:280px}
+@media(max-width:768px){
+  .wrap{padding:1rem}
+  h1{font-size:1.5rem}
+  .cars{grid-template-columns:1fr;gap:1.2rem}
+  .modal{width:96%;margin:10px auto;border-radius:14px}
+  .modal-gallery{height:55vw}
+  .modal-meta-grid{grid-template-columns:repeat(3,1fr);gap:.5rem}
+  .meta-item{padding:.6rem .4rem}
+  .meta-item .value{font-size:.85rem}
+  .modal-body{padding:1rem}
+  .modal-name{font-size:1.3rem}
+  .modal-price{font-size:1.5rem}
+  .modal-thumbs img{width:50px;height:38px}
+}
+
+@media(max-width:400px){
   .modal-meta-grid{grid-template-columns:repeat(2,1fr)}
-  .modal-body{padding:1.2rem}
-  .cars{grid-template-columns:1fr}
+  .modal-gallery{height:60vw}
 }
 </style>
 </head>
@@ -106,13 +125,24 @@ firebase.initializeApp({
   messagingSenderId:"360924922585",
   appId:"1:360924922585:web:0f18b076fff3e82460f4c8"
 });
-var db = firebase.database();
-var allCars = {};
-var modalIdx = 0;
-var modalImages = [];
+var db=firebase.database();
+var allCars={};
+var cardState={};
+var modalIdx=0;var modalImages=[];
 
 function fmt(n){return Math.round(n).toLocaleString('he-IL')}
 function pmt(p,m,r){var i=r/100/12;if(i===0)return p/m;return p*(i*Math.pow(1+i,m))/(Math.pow(1+i,m)-1)}
+
+function cardSlide(id,dir,e){
+  e.stopPropagation();
+  var s=cardState[id];if(!s)return;
+  s.idx+=dir;
+  if(s.idx<0)s.idx=s.imgs.length-1;
+  if(s.idx>=s.imgs.length)s.idx=0;
+  document.getElementById('ci-'+id).src=s.imgs[s.idx];
+  var dots=document.querySelectorAll('.cd-'+id+' .card-dot');
+  for(var i=0;i<dots.length;i++){dots[i].className=i===s.idx?'card-dot on':'card-dot'}
+}
 
 db.ref('cars').on('value',function(snap){
   var data=snap.val();
@@ -123,19 +153,29 @@ db.ref('cars').on('value',function(snap){
   var keys=Object.keys(data);
   for(var i=0;i<keys.length;i++){
     var car=data[keys[i]];
+    var id=keys[i].replace(/[^a-zA-Z0-9]/g,'');
     var imgs=car.images||[];
     if(imgs.length===0&&car.image_url)imgs=[car.image_url];
+    cardState[id]={idx:0,imgs:imgs};
     var price=parseInt(car.price)||0;
+
     h+='<div class="car" onclick="openModal(\''+keys[i]+'\')">';
-    h+='<div class="car-thumb">';
-    if(imgs.length>0)h+='<img src="'+imgs[0]+'" alt="'+car.name+'" class="car-img">';
-    if(imgs.length>1)h+='<span class="img-count">'+imgs.length+' &#x05EA;&#x05DE;&#x05D5;&#x05E0;&#x05D5;&#x05EA;</span>';
+    h+='<div class="card-gallery">';
+    if(imgs.length>0)h+='<img id="ci-'+id+'" src="'+imgs[0]+'" alt="'+(car.name||'')+'">';
+    if(imgs.length>1){
+      h+='<button class="card-arrow r" onclick="cardSlide(\''+id+'\',1,event)">&#8249;</button>';
+      h+='<button class="card-arrow l" onclick="cardSlide(\''+id+'\',-1,event)">&#8250;</button>';
+      h+='<span class="img-count">'+imgs.length+' &#x05EA;&#x05DE;&#x05D5;&#x05E0;&#x05D5;&#x05EA;</span>';
+      h+='<div class="card-dots cd-'+id+'">';
+      for(var d=0;d<imgs.length;d++){h+='<button class="card-dot'+(d===0?' on':'')+'" onclick="event.stopPropagation()"></button>'}
+      h+='</div>';
+    }
     h+='</div>';
     h+='<div class="car-info">';
     h+='<div class="car-name">'+(car.name||'')+'</div>';
     h+='<div class="car-meta">'+(car.year||'')+' &middot; '+(car.engine||'')+' &middot; '+fmt(car.km||0)+' &#x05E7;"&#x05DE;</div>';
     h+='<div class="car-price">'+fmt(price)+' &#8362;</div>';
-    if(car.description)h+='<div class="car-badge">&#x05DC;&#x05D7;&#x05E5; &#x05DC;&#x05E4;&#x05E8;&#x05D8;&#x05D9;&#x05DD;</div>';
+    h+='<div class="car-badge">&#x05DC;&#x05D7;&#x05E5; &#x05DC;&#x05E4;&#x05E8;&#x05D8;&#x05D9;&#x05DD;</div>';
     h+='</div></div>';
   }
   h+='</div>';
@@ -151,41 +191,28 @@ function openModal(key){
   var defM=36;var defPMT=pmt(price,defM,5);
 
   var h='<button class="modal-close" onclick="closeModal()">&#x2715;</button>';
-  
-  h+='<div class="modal-gallery" id="mgal">';
-  h+='<img id="mimg" src="'+(modalImages[0]||'')+'" alt="">';
+  h+='<div class="modal-gallery">';
+  h+='<img id="mimg" src="'+(modalImages[0]||'')+'">';
   if(modalImages.length>1){
     h+='<button class="modal-arrow right" onclick="mSlide(1)">&#8249;</button>';
     h+='<button class="modal-arrow left" onclick="mSlide(-1)">&#8250;</button>';
     h+='<div class="modal-counter" id="mcounter">1 / '+modalImages.length+'</div>';
   }
   h+='</div>';
-
   if(modalImages.length>1){
     h+='<div class="modal-thumbs" id="mthumbs">';
-    for(var i=0;i<modalImages.length;i++){
-      h+='<img src="'+modalImages[i]+'" onclick="mGo('+i+')" class="'+(i===0?'active':'')+'">';
-    }
+    for(var i=0;i<modalImages.length;i++){h+='<img src="'+modalImages[i]+'" onclick="mGo('+i+')" class="'+(i===0?'active':'')+'">'}
     h+='</div>';
   }
-
   h+='<div class="modal-body">';
   h+='<div class="modal-name">'+(car.name||'')+'</div>';
-  
   h+='<div class="modal-meta-grid">';
   h+='<div class="meta-item"><div class="label">&#x05E9;&#x05E0;&#x05D4;</div><div class="value">'+(car.year||'')+'</div></div>';
   h+='<div class="meta-item"><div class="label">&#x05DE;&#x05E0;&#x05D5;&#x05E2;</div><div class="value">'+(car.engine||'')+'</div></div>';
   h+='<div class="meta-item"><div class="label">&#x05E7;"&#x05DE;</div><div class="value">'+fmt(car.km||0)+'</div></div>';
   h+='</div>';
-
-  if(car.description){
-    h+='<div class="modal-desc">'+car.description+'</div>';
-  }
-
-  h+='<div class="modal-price-row">';
+  if(car.description){h+='<div class="modal-desc">'+car.description+'</div>'}
   h+='<div class="modal-price">'+fmt(price)+' &#8362;</div>';
-  h+='</div>';
-
   h+='<div class="modal-finance">';
   h+='<h3>&#x05DE;&#x05D7;&#x05E9;&#x05D1;&#x05D5;&#x05DF; &#x05DE;&#x05D9;&#x05DE;&#x05D5;&#x05DF; (5% &#x05E8;&#x05D9;&#x05D1;&#x05D9;&#x05EA;)</h3>';
   h+='<div class="mf-label"><span>&#x05EA;&#x05E7;&#x05D5;&#x05E4;&#x05D4;</span><span id="mm">'+defM+' &#x05D7;&#x05D5;&#x05D3;&#x05E9;&#x05D9;&#x05DD;</span></div>';
@@ -194,47 +221,30 @@ function openModal(key){
   h+='<div class="mf-monthly" id="mpmt">'+fmt(defPMT)+' &#8362; / &#x05D7;&#x05D5;&#x05D3;&#x05E9;</div>';
   h+='<div class="mf-total" id="mtotal">&#x05E1;&#x05D4;"&#x05DB;: '+fmt(defPMT*defM)+' &#8362;</div>';
   h+='</div></div>';
-
-  h+='<button class="modal-cta" onclick="alert(\'&#x05D1;&#x05E7;&#x05E8;&#x05D5;&#x05D1; - &#x05D8;&#x05D5;&#x05E4;&#x05E1; &#x05D9;&#x05E6;&#x05D9;&#x05E8;&#x05EA; &#x05E7;&#x05E9;&#x05E8;\')">&#x05D0;&#x05E0;&#x05D9; &#x05DE;&#x05E2;&#x05D5;&#x05E0;&#x05D9;&#x05D9;&#x05DF; - &#x05E6;&#x05E8;&#x05D5; &#x05E7;&#x05E9;&#x05E8;</button>';
+  h+='<button class="modal-cta" onclick="alert(\'&#x05D1;&#x05E7;&#x05E8;&#x05D5;&#x05D1;\')">&#x05D0;&#x05E0;&#x05D9; &#x05DE;&#x05E2;&#x05D5;&#x05E0;&#x05D9;&#x05D9;&#x05DF; - &#x05E6;&#x05E8;&#x05D5; &#x05E7;&#x05E9;&#x05E8;</button>';
   h+='</div>';
 
   document.getElementById('modal').innerHTML=h;
   document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow='hidden';
+  document.getElementById('modalOverlay').scrollTop=0;
 }
 
-function closeModal(){
-  document.getElementById('modalOverlay').classList.remove('active');
-  document.body.style.overflow='';
-}
-
-function mSlide(dir){
-  modalIdx+=dir;
-  if(modalIdx<0)modalIdx=modalImages.length-1;
-  if(modalIdx>=modalImages.length)modalIdx=0;
-  mUpdate();
-}
-
-function mGo(i){modalIdx=i;mUpdate()}
-
-function mUpdate(){
+function closeModal(){document.getElementById('modalOverlay').classList.remove('active');document.body.style.overflow=''}
+function mSlide(dir){modalIdx+=dir;if(modalIdx<0)modalIdx=modalImages.length-1;if(modalIdx>=modalImages.length)modalIdx=0;mUp()}
+function mGo(i){modalIdx=i;mUp()}
+function mUp(){
   document.getElementById('mimg').src=modalImages[modalIdx];
-  var cnt=document.getElementById('mcounter');
-  if(cnt)cnt.innerHTML=(modalIdx+1)+' / '+modalImages.length;
-  var thumbs=document.querySelectorAll('#mthumbs img');
-  for(var i=0;i<thumbs.length;i++){thumbs[i].className=i===modalIdx?'active':''}
+  var cnt=document.getElementById('mcounter');if(cnt)cnt.innerHTML=(modalIdx+1)+' / '+modalImages.length;
+  var t=document.querySelectorAll('#mthumbs img');for(var i=0;i<t.length;i++){t[i].className=i===modalIdx?'active':''}
 }
-
 function mCalc(price){
   var m=parseInt(document.getElementById('mslider').value);
   var p=pmt(price,m,5);
   document.getElementById('mpmt').innerHTML=fmt(p)+' &#8362; / &#x05D7;&#x05D5;&#x05D3;&#x05E9;';
   document.getElementById('mm').innerHTML=m+' &#x05D7;&#x05D5;&#x05D3;&#x05E9;&#x05D9;&#x05DD;';
   document.getElementById('mtotal').innerHTML='&#x05E1;&#x05D4;"&#x05DB;: '+fmt(p*m)+' &#8362;';
-  var pct=(m/60)*100;
-  document.getElementById('mslider').style.background='linear-gradient(90deg,#C9A84C '+pct+'%,#E0DEDA '+pct+'%)';
 }
-
 document.addEventListener('keydown',function(e){
   if(!document.getElementById('modalOverlay').classList.contains('active'))return;
   if(e.key==='Escape')closeModal();
