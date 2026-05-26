@@ -22,14 +22,14 @@ h1{margin-bottom:2rem;color:#0b1f3a}
 </head>
 <body>
 <div class="container">
-  <h1>🚗 קטלוג רכבים</h1>
-  <div id="cars" class="cars loading">טוען...</div>
+  <h1>&#x1F697; &#x05E7;&#x05D8;&#x05DC;&#x05D5;&#x05D2; &#x05E8;&#x05DB;&#x05D1;&#x05D9;&#x05DD;</h1>
+  <div id="cars" class="cars loading">&#x05D8;&#x05D5;&#x05E2;&#x05DF;...</div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
-const firebaseConfig = {
+var firebaseConfig = {
   apiKey: "AIzaSyCUC4ConlLR7nONsqECFc_8S5_rO9oiwuQ",
   authDomain: "car-sales-7ddec.firebaseapp.com",
   databaseURL: "https://car-sales-7ddec-default-rtdb.firebaseio.com",
@@ -39,31 +39,38 @@ const firebaseConfig = {
   appId: "1:360924922585:web:0f18b076fff3e82460f4c8"
 };
 
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+firebase.initializeApp(firebaseConfig);
+var db = firebase.database();
 
 db.ref('cars').on('value', function(snapshot) {
-  const data = snapshot.val();
-  const container = document.getElementById('cars');
+  var data = snapshot.val();
+  var container = document.getElementById('cars');
   
   if (!data) {
-    container.innerHTML = '<p style="grid-column:1/-1;text-align:center">אין רכבים</p>';
+    container.innerHTML = '<p style="grid-column:1/-1;text-align:center">No cars yet</p>';
     return;
   }
 
-  let html = '';
-  for (let key in data) {
-    const car = data[key];
-    html += `
-      <div class="car">
-        <img src="${car.image_url || ''}" alt="${car.name}" class="car-img">
-        <div class="car-info">
-          <div class="car-name">${car.name}</div>
-          <div class="car-meta">${car.year} · ${car.engine} · ${car.km} ק"מ</div>
-          <div class="car-price">₪ ${parseInt(car.price).toLocaleString('he-IL')}</div>
-        </div>
-      </div>
-    `;
+  var html = '';
+  var keys = Object.keys(data);
+  for (var i = 0; i < keys.length; i++) {
+    var car = data[keys[i]];
+    var imgSrc = car.image_url || '';
+    var name = car.name || '';
+    var year = car.year || '';
+    var engine = car.engine || '';
+    var km = car.km || 0;
+    var price = parseInt(car.price) || 0;
+    
+    html += '<div class="car">';
+    if (imgSrc) {
+      html += '<img src="' + imgSrc + '" alt="' + name + '" class="car-img">';
+    }
+    html += '<div class="car-info">';
+    html += '<div class="car-name">' + name + '</div>';
+    html += '<div class="car-meta">' + year + ' &middot; ' + engine + ' &middot; ' + km + ' km</div>';
+    html += '<div class="car-price">' + price.toLocaleString('he-IL') + ' &#8362;</div>';
+    html += '</div></div>';
   }
   
   container.classList.remove('loading');
