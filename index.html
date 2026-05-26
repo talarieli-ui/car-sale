@@ -16,7 +16,18 @@ h1{font-size:2rem;margin-bottom:2rem;font-weight:900}
 .cars{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2rem}
 .car{background:white;border-radius:16px;overflow:hidden;border:1px solid #E0DEDA;transition:transform .2s,box-shadow .2s}
 .car:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.car-img{width:100%;height:220px;object-fit:cover;background:#ddd}
+
+.gallery{position:relative;width:100%;height:220px;overflow:hidden;background:#111}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;background:rgba(255,255,255,.85);border:none;border-radius:50%;cursor:pointer;font-size:18px;font-weight:bold;color:#0B1F3A;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:background .2s;z-index:2}
+.gallery-arrow:hover{background:#fff}
+.gallery-arrow.right{right:8px}
+.gallery-arrow.left{left:8px}
+.gallery-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px}
+.gallery-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.5);border:none;cursor:pointer;padding:0}
+.gallery-dot.active{background:#C9A84C}
+.img-count{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);color:white;padding:2px 8px;border-radius:12px;font-size:.75rem}
+
 .car-info{padding:1.5rem}
 .car-name{font-size:1.2rem;font-weight:800;margin-bottom:.4rem}
 .car-meta{font-size:.85rem;color:#5A6A7E;margin-bottom:1rem}
@@ -28,7 +39,6 @@ h1{font-size:2rem;margin-bottom:2rem;font-weight:900}
 .finance-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#C9A84C;cursor:pointer;border:2px solid #0B1F3A}
 .finance-result{display:flex;justify-content:space-between;align-items:center;margin-top:.8rem}
 .monthly{font-size:1.3rem;font-weight:900;color:#C9A84C}
-.months-display{font-size:.85rem;color:#5A6A7E}
 .total-cost{font-size:.75rem;color:#999;margin-top:.3rem}
 
 .loading{text-align:center;padding:4rem;font-size:1.2rem;color:#5A6A7E}
@@ -60,8 +70,10 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.database();
 
-function calcPMT(price, months, annualRate) {
-  var r = annualRate / 100 / 12;
+var galleryState = {};
+
+function calcPMT(price, months, rate) {
+  var r = rate / 100 / 12;
   if (r === 0) return price / months;
   return price * (r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
 }
@@ -70,34 +82,84 @@ function formatNum(n) {
   return Math.round(n).toLocaleString('he-IL');
 }
 
+function changeSlide(id, dir) {
+  var state = galleryState[id];
+  if (!state) return;
+  var newIdx = state.current + dir;
+  if (newIdx < 0) newIdx = state.total - 1;
+  if (newIdx >= state.total) newIdx = 0;
+  state.current = newIdx;
+  
+  var img = document.getElementById('gimg-' + id);
+  if (img) img.src = state.images[newIdx];
+  
+  var dots = document.querySelectorAll('.dots-' + id + ' .gallery-dot');
+  for (var i = 0; i < dots.length; i++) {
+    dots[i].className = i === newIdx ? 'gallery-dot active' : 'gallery-dot';
+  }
+}
+
+function goToSlide(id, idx) {
+  var state = galleryState[id];
+  if (!state) return;
+  state.current = idx;
+  var img = document.getElementById('gimg-' + id);
+  if (img) img.src = state.images[idx];
+  var dots = document.querySelectorAll('.dots-' + id + ' .gallery-dot');
+  for (var i = 0; i < dots.length; i++) {
+    dots[i].className = i === idx ? 'gallery-dot active' : 'gallery-dot';
+  }
+}
+
 db.ref('cars').on('value', function(snapshot) {
   var data = snapshot.val();
   var container = document.getElementById('cars');
   
   if (!data) {
-    container.innerHTML = '<p style="text-align:center;color:#999;padding:3rem">&#x05D0;&#x05D9;&#x05DF; &#x05E8;&#x05DB;&#x05D1;&#x05D9;&#x05DD; &#x05D6;&#x05DE;&#x05D9;&#x05E0;&#x05D9;&#x05DD;</p>';
+    container.innerHTML = '<p style="text-align:center;color:#999;padding:3rem">&#x05D0;&#x05D9;&#x05DF; &#x05E8;&#x05DB;&#x05D1;&#x05D9;&#x05DD;</p>';
     return;
   }
 
   var html = '<div class="cars">';
   var keys = Object.keys(data);
+  
   for (var i = 0; i < keys.length; i++) {
     var car = data[keys[i]];
-    var id = keys[i];
+    var id = keys[i].replace(/[^a-zA-Z0-9]/g, '');
     var price = parseInt(car.price) || 0;
     var name = car.name || '';
     var year = car.year || '';
     var engine = car.engine || '';
     var km = car.km || 0;
-    var imgSrc = car.image_url || '';
+    
+    var images = car.images || [];
+    if (images.length === 0 && car.image_url) images = [car.image_url];
+    
+    galleryState[id] = { current: 0, total: images.length, images: images };
+    
     var defaultMonths = 36;
     var defaultPMT = calcPMT(price, defaultMonths, 5);
     var totalDefault = defaultPMT * defaultMonths;
 
     html += '<div class="car">';
-    if (imgSrc) {
-      html += '<img src="' + imgSrc + '" alt="' + name + '" class="car-img">';
+    
+    if (images.length > 0) {
+      html += '<div class="gallery">';
+      html += '<img id="gimg-' + id + '" src="' + images[0] + '" alt="' + name + '">';
+      
+      if (images.length > 1) {
+        html += '<button class="gallery-arrow right" onclick="changeSlide(\'' + id + '\',1)">&#8249;</button>';
+        html += '<button class="gallery-arrow left" onclick="changeSlide(\'' + id + '\',-1)">&#8250;</button>';
+        html += '<span class="img-count">' + images.length + ' &#x05EA;&#x05DE;&#x05D5;&#x05E0;&#x05D5;&#x05EA;</span>';
+        html += '<div class="gallery-dots dots-' + id + '">';
+        for (var d = 0; d < images.length; d++) {
+          html += '<button class="gallery-dot' + (d === 0 ? ' active' : '') + '" onclick="goToSlide(\'' + id + '\',' + d + ')"></button>';
+        }
+        html += '</div>';
+      }
+      html += '</div>';
     }
+    
     html += '<div class="car-info">';
     html += '<div class="car-name">' + name + '</div>';
     html += '<div class="car-meta">' + year + ' &middot; ' + engine + ' &middot; ' + formatNum(km) + ' &#x05E7;"&#x05DE;</div>';
@@ -106,9 +168,7 @@ db.ref('cars').on('value', function(snapshot) {
     html += '<div class="finance-box">';
     html += '<div class="finance-label"><span>&#x05DE;&#x05D9;&#x05DE;&#x05D5;&#x05DF; &#x05D7;&#x05D5;&#x05D3;&#x05E9;&#x05D9; (5% &#x05E8;&#x05D9;&#x05D1;&#x05D9;&#x05EA;)</span><span id="months-' + id + '">' + defaultMonths + ' &#x05D7;&#x05D5;&#x05D3;&#x05E9;&#x05D9;&#x05DD;</span></div>';
     html += '<input type="range" min="1" max="60" value="' + defaultMonths + '" class="finance-slider" oninput="updatePMT(\'' + id + '\',' + price + ',this.value)">';
-    html += '<div class="finance-result">';
-    html += '<div class="monthly" id="pmt-' + id + '">' + formatNum(defaultPMT) + ' &#8362; / &#x05D7;&#x05D5;&#x05D3;&#x05E9;</div>';
-    html += '</div>';
+    html += '<div class="finance-result"><div class="monthly" id="pmt-' + id + '">' + formatNum(defaultPMT) + ' &#8362; / &#x05D7;&#x05D5;&#x05D3;&#x05E9;</div></div>';
     html += '<div class="total-cost" id="total-' + id + '">&#x05E1;&#x05D4;"&#x05DB; &#x05DC;&#x05EA;&#x05E9;&#x05DC;&#x05D5;&#x05DD;: ' + formatNum(totalDefault) + ' &#8362;</div>';
     html += '</div>';
 
