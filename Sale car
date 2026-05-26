@@ -1,29 +1,346 @@
-מצטער — לא יכול לתקן את זה מכאן. אבל יש דרך קלה להוריד:
-
-### דרך 1 — העתקה ישירה ל-GitHub (הכי מהיר)
-
-1. היכנס ל-GitHub שלך ב-Repository `car-sale`
-2. לחץ על **"Add file"** (הכפתור האפור)
-3. בחר **"Create new file"**
-4. בראש הדף כתוב את השם: `vehicle-page.html`
-5. לחץ בתוך תיבת הטקסט
-6. לחץ עם **Ctrl+A** (או **Cmd+A** ב-Mac) כדי לבחור הכל
-7. לחץ על כפתור ה**"העתקה"** שיש פה (בחלון החדש שלי)
-8. הדבק את הקוד (Ctrl+V) ב-GitHub
-9. לחץ **"Commit changes"** בתחתית
-
----
-
-### דרך 2 — הורדה למחשב תחילה
-
-1. לחץ על כפתור ה**"העתקה"** שיש לי
-2. פתח **Notepad** או **TextEdit**
-3. הדבק את הקוד (Ctrl+V)
-4. לחץ **File → Save As**
-5. תן לו שם: `vehicle-page.html`
-6. בחר תיקייה (למשל Desktop או Downloads)
-7. לחץ **Save**
-
----
-
-אחרי זה, אתה יכול להעלות אותו ל-GitHub דרך **"Upload files"** כמו שהסברתי.
+```html
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoFin — פורד מוסטנג GT 2023</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B1F3A;
+  --navy2:#162F55;
+  --gold:#C9A84C;
+  --gold-dim:#E8D49A;
+  --surface:#F4F3EF;
+  --white:#FFFFFF;
+  --tp:#0B1F3A;
+  --ts:#5A6A7E;
+  --tm:#9AAAB8;
+  --border:#E0DEDA;
+  --border2:#C8C5BF;
+  --red:#C0392B;
+  --green:#1A7A4A;
+  --green-bg:#E8F5EE;
+  --r-md:10px;
+  --r-lg:16px;
+  --r-xl:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Heebo',sans-serif;background:var(--surface);color:var(--tp);direction:rtl;-webkit-font-smoothing:antialiased}
+.nav{background:var(--navy);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:100}
+.logo{color:var(--gold);font-size:1.6rem;font-weight:900;letter-spacing:-1px;cursor:pointer}
+.logo em{color:white;font-style:normal}
+.nav-links{display:flex;gap:1.5rem}
+.nav-link{color:rgba(255,255,255,.5);font-size:.85rem;font-weight:500;cursor:pointer;transition:color .2s}
+.nav-link:hover{color:white}
+.breadcrumb{font-size:.78rem;color:var(--tm);padding:1rem 2rem;max-width:1240px;margin:0 auto}
+.breadcrumb b{color:var(--navy);font-weight:600}
+.wrap{max-width:1240px;margin:0 auto;padding:0 2rem 4rem}
+.main-grid{display:grid;grid-template-columns:1fr 420px;gap:2rem;align-items:start}
+.gallery{}
+.gallery-main{position:relative;border-radius:var(--r-xl);overflow:hidden;background:#000;aspect-ratio:16/9;cursor:zoom-in}
+.gallery-main img{width:100%;height:100%;object-fit:cover;transition:opacity .35s,transform .4s}
+.gallery-main:hover img{transform:scale(1.02)}
+.gallery-badge{position:absolute;top:1rem;right:1rem;background:rgba(11,31,58,.85);backdrop-filter:blur(6px);color:white;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.15);letter-spacing:.5px}
+.gallery-status{position:absolute;top:1rem;left:1rem;background:var(--green-bg);color:var(--green);font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:20px;border:1px solid rgba(26,122,74,.2);letter-spacing:.3px}
+.gallery-thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.gallery-thumbs::-webkit-scrollbar{display:none}
+.thumb{flex-shrink:0;width:82px;height:60px;border-radius:var(--r-md);overflow:hidden;cursor:pointer;border:2.5px solid transparent;transition:border-color .2s,transform .15s;position:relative}
+.thumb:hover{transform:translateY(-2px)}
+.thumb.active{border-color:var(--gold)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb-overlay{position:absolute;inset:0;background:rgba(201,168,76,.18);opacity:0;transition:opacity .2s}
+.thumb.active .thumb-overlay{opacity:1}
+.car-header{margin-top:1.5rem}
+.car-tag{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.car-tag span{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.car-title{font-size:2.6rem;font-weight:900;color:var(--navy);line-height:1.05;letter-spacing:-1px}
+.car-meta{font-size:.95rem;color:var(--ts);margin-top:6px;font-weight:400}
+.car-meta strong{color:var(--navy);font-weight:700}
+.specs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:1.25rem}
+.spec{background:var(--white);border-radius:var(--r-lg);padding:14px 10px;text-align:center;border:1px solid var(--border);transition:border-color .2s,transform .2s}
+.spec:hover{border-color:var(--gold-dim);transform:translateY(-2px)}
+.spec-icon{font-size:1.3rem;margin-bottom:5px;line-height:1}
+.spec-val{font-size:.95rem;font-weight:700;color:var(--navy)}
+.spec-lbl{font-size:.68rem;color:var(--tm);margin-top:3px;font-weight:500}
+.highlights{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.25rem}
+.highlight-chip{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:5px 14px;font-size:.78rem;color:var(--navy);font-weight:500;display:flex;align-items:center;gap:5px}
+.highlight-chip::before{content:'✓';color:var(--green);font-weight:800}
+.desc-card{background:var(--white);border-radius:var(--r-xl);padding:1.5rem;margin-top:1.25rem;border:1px solid var(--border)}
+.card-title{font-size:.9rem;font-weight:800;color:var(--navy);display:flex;align-items:center;gap:10px;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.card-title-bar{width:4px;height:18px;background:var(--gold);border-radius:2px;flex-shrink:0}
+.desc-text{font-size:.88rem;color:var(--ts);line-height:1.8}
+.sidebar{position:sticky;top:80px}
+.price-card{background:var(--navy);border-radius:var(--r-xl);padding:1.5rem;position:relative;overflow:hidden}
+.price-card::before{content:'';position:absolute;top:-40px;left:-40px;width:180px;height:180px;border-radius:50%;background:rgba(201,168,76,.06)}
+.price-card::after{content:'';position:absolute;bottom:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.03)}
+.price-lbl{font-size:.75rem;color:rgba(255,255,255,.45);font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.price-main{font-size:2.2rem;font-weight:900;color:white;margin:4px 0 2px;letter-spacing:-1px}
+.price-note{font-size:.74rem;color:rgba(255,255,255,.35);font-weight:400}
+.price-divider{border:none;border-top:1px solid rgba(255,255,255,.08);margin:1rem 0}
+.price-perks{display:flex;flex-direction:column;gap:7px}
+.price-perk{font-size:.78rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:8px}
+.price-perk::before{content:'✓';color:var(--gold);font-weight:800;font-size:.85rem}
+.fin-card{background:var(--white);border-radius:var(--r-xl);padding:1.5rem;margin-top:.75rem;border:1px solid var(--border)}
+.payment-box{background:var(--surface);border-radius:var(--r-lg);padding:1.25rem;text-align:center;margin-bottom:1.25rem;border:1px solid var(--border);position:relative;overflow:hidden}
+.payment-box::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(to right, var(--gold), #e8c96b)}
+.pay-lbl{font-size:.74rem;color:var(--tm);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.pay-amount{display:flex;align-items:baseline;justify-content:center;gap:4px}
+.pay-currency{font-size:1.3rem;font-weight:800;color:var(--navy);line-height:1;margin-bottom:6px}
+.pay-num{font-size:3rem;font-weight:900;color:var(--navy);line-height:1;letter-spacing:-2px;transition:all .15s}
+.pay-period{font-size:.78rem;color:var(--ts);margin-top:6px;font-weight:500}
+.slider-wrap{margin-bottom:1.25rem;direction:ltr}
+.slider-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;direction:rtl}
+.slider-lbl{font-size:.82rem;color:var(--ts);font-weight:600}
+.slider-pill{background:var(--navy);color:white;font-size:.82rem;font-weight:800;padding:4px 14px;border-radius:20px;min-width:54px;text-align:center;transition:background .15s}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;outline:none;cursor:pointer;background:linear-gradient(to right, var(--gold) var(--fill,0%), var(--border) var(--fill,0%))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--navy);border:3.5px solid var(--gold);cursor:pointer;box-shadow:0 2px 10px rgba(11,31,58,.3);transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--navy);border:3.5px solid var(--gold);cursor:pointer}
+.slider-marks{display:flex;justify-content:space-between;margin-top:8px;direction:ltr}
+.slider-mark{font-size:.68rem;color:var(--tm);font-weight:500}
+.breakdown{border-top:1px solid var(--border);padding-top:1rem;display:flex;flex-direction:column;gap:2px}
+.brow{display:flex;justify-content:space-between;align-items:center;padding:5px 0}
+.brow-lbl{font-size:.8rem;color:var(--ts)}
+.brow-val{font-size:.8rem;font-weight:700;color:var(--navy)}
+.brow.interest .brow-val{color:var(--red)}
+.brow.total{border-top:1.5px dashed var(--border);margin-top:6px;padding-top:10px}
+.brow.total .brow-lbl{font-size:.88rem;font-weight:800;color:var(--navy)}
+.brow.total .brow-val{font-size:.88rem;color:var(--gold)}
+.cta{width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:var(--r-lg);padding:15px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;margin-top:1rem;transition:all .2s;letter-spacing:-.2px}
+.cta:hover{background:#d9b558;transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.3)}
+.cta:active{transform:scale(.99)}
+.cta-secondary{width:100%;background:transparent;color:var(--navy);border:1.5px solid var(--border2);border-radius:var(--r-lg);padding:11px;font-family:'Heebo',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;margin-top:.5rem;transition:all .2s}
+.cta-secondary:hover{background:var(--surface);border-color:var(--navy)}
+.trust{display:flex;justify-content:center;gap:1.25rem;margin-top:1rem;flex-wrap:wrap}
+.trust-item{font-size:.7rem;color:var(--tm);display:flex;align-items:center;gap:4px;font-weight:500}
+.trust-item::before{content:'✓';color:var(--green);font-weight:800;font-size:.78rem}
+@keyframes numPop{0%{transform:scale(1)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
+.pop{animation:numPop .2s ease}
+.disclaimer{font-size:.7rem;color:var(--tm);text-align:center;margin-top:.75rem;line-height:1.5}
+.related-title{font-size:1.4rem;font-weight:900;color:var(--navy);margin:2.5rem 0 1rem;display:flex;align-items:center;gap:12px}
+.related-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.related-card{background:var(--white);border-radius:var(--r-lg);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:transform .2s,border-color .2s}
+.related-card:hover{transform:translateY(-3px);border-color:var(--gold-dim)}
+.related-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.related-body{padding:12px}
+.related-name{font-size:.88rem;font-weight:700;color:var(--navy)}
+.related-year{font-size:.74rem;color:var(--tm);margin-top:2px}
+.related-price{font-size:.95rem;font-weight:800;color:var(--navy);margin-top:6px}
+@media(max-width:900px){.main-grid{grid-template-columns:1fr}.sidebar{position:static}.car-title{font-size:2rem}.specs{grid-template-columns:repeat(2,1fr)}.related-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.wrap{padding:0 1rem 3rem}.breadcrumb{padding:.75rem 1rem}.related-grid{grid-template-columns:1fr}.car-title{font-size:1.75rem}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="logo">אוטו<em>פין</em></div>
+  <div class="nav-links">
+    <span class="nav-link">קטלוג רכבים</span>
+    <span class="nav-link">מימון ופיננסים</span>
+    <span class="nav-link">אודות</span>
+    <span class="nav-link">צור קשר</span>
+  </div>
+</nav>
+<div class="breadcrumb">
+  ראשי / קטלוג / <b>פורד מוסטנג GT 2023</b>
+</div>
+<div class="wrap">
+  <div class="main-grid">
+    <div>
+      <div class="gallery">
+        <div class="gallery-main" id="mainWrap">
+          <img id="mainImg" src="https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?w=1000&q=85" alt="פורד מוסטנג GT 2023 — תמונה ראשית">
+          <div class="gallery-badge">📸 4 תמונות</div>
+          <div class="gallery-status">✅ זמין מיידית</div>
+        </div>
+        <div class="gallery-thumbs" id="thumbs"></div>
+      </div>
+      <div class="car-header">
+        <div class="car-tag"><span></span>רכב מומלץ · ביקוש גבוה</div>
+        <div class="car-title">פורד מוסטנג GT</div>
+        <div class="car-meta"><strong>2023</strong> · 5.0 V8 450 כ"ס · אוטומטי 10 הילוכים · <strong>כסף מטאלי</strong></div>
+      </div>
+      <div class="specs">
+        <div class="spec">
+          <div class="spec-icon">📅</div>
+          <div class="spec-val">2023</div>
+          <div class="spec-lbl">שנת ייצור</div>
+        </div>
+        <div class="spec">
+          <div class="spec-icon">🛣️</div>
+          <div class="spec-val">12,400</div>
+          <div class="spec-lbl">ק"מ</div>
+        </div>
+        <div class="spec">
+          <div class="spec-icon">⚙️</div>
+          <div class="spec-val">5.0L V8</div>
+          <div class="spec-lbl">מנוע</div>
+        </div>
+        <div class="spec">
+          <div class="spec-icon">🚀</div>
+          <div class="spec-val">450 כ"ס</div>
+          <div class="spec-lbl">הספק</div>
+        </div>
+      </div>
+      <div class="highlights">
+        <div class="highlight-chip">ריפוד עור אדום</div>
+        <div class="highlight-chip">מסך מולטימדיה 12"</div>
+        <div class="highlight-chip">מצלמת רוורס 360°</div>
+        <div class="highlight-chip">מערכת קול B&O</div>
+        <div class="highlight-chip">ספוילר GT500</div>
+        <div class="highlight-chip">ייבוא אישי</div>
+      </div>
+      <div class="desc-card">
+        <div class="card-title">
+          <div class="card-title-bar"></div>
+          תיאור הרכב
+        </div>
+        <p class="desc-text">
+          פורד מוסטנג GT 2023 במצב מוזיאון — לא פחות.
+          רכב ייבוא אישי עם כל המסמכים המקוריים, עבר טיפולים מלאים בסוכנות מורשית.
+          המנוע האיקוני 5.0 V8 במצב פרימיום: צליל שאין שני לו, תאוצה מהממת 0-100 ב-4.3 שניות.
+          פנים מטופח: ריפוד עור אדום מלא, מסך אינפוטיינמנט SYNC 4 בגודל 12 אינץ',
+          מצלמת 360° מלאה, מערכת קול B&O Premium 9-רמקולים.
+          תוספות חיצוניות: ספוילר אחורי GT500, גלגלים בגודל 19", כניסה ללא מפתח.
+          היסטוריית רכב נקייה, בדיקה עצמאית מוזמנת. המחיר — סופי, ללא הפתעות.
+        </p>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="price-card">
+        <div class="price-lbl">מחיר מחירון סופי</div>
+        <div class="price-main">₪ 320,000</div>
+        <div class="price-note">כולל מע"מ · ללא עמלות נסתרות</div>
+        <hr class="price-divider">
+        <div class="price-perks">
+          <div class="price-perk">בדיקת רכב חינם על חשבוננו</div>
+          <div class="price-perk">העברת בעלות מלאה בשירות לקוחות</div>
+          <div class="price-perk">אחריות מנוע 6 חודשים</div>
+        </div>
+      </div>
+      <div class="fin-card">
+        <div class="card-title">
+          <div class="card-title-bar"></div>
+          מחשבון מימון חכם
+        </div>
+        <div class="payment-box">
+          <div class="pay-lbl">תשלום חודשי משוער</div>
+          <div class="pay-amount">
+            <div class="pay-currency">₪</div>
+            <div class="pay-num" id="payNum">–</div>
+          </div>
+          <div class="pay-period" id="payPeriod">בחר מספר תשלומים</div>
+        </div>
+        <div class="slider-wrap">
+          <div class="slider-header">
+            <span class="slider-lbl">בחר מספר תשלומים חודשיים</span>
+            <span class="slider-pill" id="sliderPill">–</span>
+          </div>
+          <input type="range" id="monthSlider" min="1" max="60" value="36" step="1" style="--fill:0%" oninput="onSlide(this)">
+          <div class="slider-marks">
+            <span class="slider-mark">1</span>
+            <span class="slider-mark">12</span>
+            <span class="slider-mark">24</span>
+            <span class="slider-mark">36</span>
+            <span class="slider-mark">48</span>
+            <span class="slider-mark">60</span>
+          </div>
+        </div>
+        <div class="breakdown">
+          <div class="brow">
+            <span class="brow-lbl">מחיר הרכב</span>
+            <span class="brow-val" id="bPrincipal">₪ 320,000</span>
+          </div>
+          <div class="brow">
+            <span class="brow-lbl">ריבית שנתית</span>
+            <span class="brow-val" id="bRate">5.00%</span>
+          </div>
+          <div class="brow interest">
+            <span class="brow-lbl">עלות ריבית כוללת</span>
+            <span class="brow-val" id="bInterest">–</span>
+          </div>
+          <div class="brow total">
+            <span class="brow-lbl">סה"כ לתשלום</span>
+            <span class="brow-val" id="bTotal">–</span>
+          </div>
+        </div>
+        <button class="cta" onclick="showModal()">שליחת בקשה למימון ←</button>
+        <button class="cta-secondary" onclick="alert('נציג מכירות יצור איתך קשר תוך שעה.')">💬 צור קשר בוואטסאפ</button>
+        <div class="trust">
+          <span class="trust-item">אישור מהיר</span>
+          <span class="trust-item">ללא ערבים</span>
+          <span class="trust-item">מאובטח 100%</span>
+        </div>
+        <div class="disclaimer">
+          * החישוב הינו אינדיקטיבי בלבד ואינו מהווה הצעה מחייבת.
+          הריבית הסופית תיקבע בהתאם לנתוני הלקוח.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="related-title">רכבים דומים</div>
+  <div class="related-grid" id="relatedGrid"></div>
+</div>
+<div id="modal" style="display:none;position:fixed;inset:0;background:rgba(11,31,58,.75);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+  <div style="background:white;border-radius:var(--r-xl);padding:2rem;max-width:440px;width:90%;position:relative;direction:rtl">
+    <div style="font-size:1.3rem;font-weight:900;color:var(--navy);margin-bottom:.25rem">
+      בקשת מימון — פורד מוסטנג GT
+    </div>
+    <div style="font-size:.82rem;color:var(--ts);margin-bottom:1.5rem">
+      מלא את הפרטים ונציג יחזור אליך תוך שעה
+    </div>
+    <div style="display:flex;flex-direction:column;gap:.75rem">
+      <div>
+        <label style="font-size:.78rem;font-weight:700;color:var(--ts);display:block;margin-bottom:4px">שם מלא</label>
+        <input type="text" placeholder="ישראל ישראלי" style="width:100%;border:1.5px solid var(--border);border-radius:var(--r-md);padding:10px 12px;font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--navy);direction:rtl;outline:none" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div>
+        <label style="font-size:.78rem;font-weight:700;color:var(--ts);display:block;margin-bottom:4px">טלפון נייד</label>
+        <input type="tel" placeholder="05X-XXXXXXX" style="width:100%;border:1.5px solid var(--border);border-radius:var(--r-md);padding:10px 12px;font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--navy);direction:ltr;text-align:right;outline:none" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+      <div>
+        <label style="font-size:.78rem;font-weight:700;color:var(--ts);display:block;margin-bottom:4px">תקופת מימון מבוקשת</label>
+        <select style="width:100%;border:1.5px solid var(--border);border-radius:var(--r-md);padding:10px 12px;font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--navy);direction:rtl;outline:none;background:white;cursor:pointer" id="modalMonths" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'">
+          <option>12 תשלומים</option>
+          <option>24 תשלומים</option>
+          <option>36 תשלומים</option>
+          <option>48 תשלומים</option>
+          <option selected>60 תשלומים</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex;gap:.5rem;margin-top:1.25rem">
+      <button onclick="submitForm()" style="flex:1;background:var(--gold);color:var(--navy);border:none;border-radius:var(--r-md);padding:13px;font-family:'Heebo',sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;transition:all .2s" onmouseover="this.style.background='#d9b558'" onmouseout="this.style.background='var(--gold)'">
+        שלח בקשה
+      </button>
+      <button onclick="closeModal()" style="background:var(--surface);color:var(--ts);border:1.5px solid var(--border);border-radius:var(--r-md);padding:13px 16px;font-family:'Heebo',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer">
+        ביטול
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+const CAR_PRICE=320000;
+const ANNUAL_RATE=5.0;
+const CAR_NAME='פורד מוסטנג GT 2023';
+const IMAGES=[{full:'https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?w=1000&q=85',thumb:'https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?w=200&q=70',alt:'חזית'},{full:'https://images.unsplash.com/photo-1547245324-d777c6f05e80?w=1000&q=85',thumb:'https://images.unsplash.com/photo-1547245324-d777c6f05e80?w=200&q=70',alt:'צד'},{full:'https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?w=1000&q=85',thumb:'https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?w=200&q=70',alt:'אחורי'},{full:'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1000&q=85',thumb:'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=200&q=70',alt:'פנים'}];
+const RELATED=[{name:'שברולט קמארו SS',year:'2022',price:'₪ 295,000',img:'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&q=70'},{name:'דודג\' צ\'אלנג\'ר R/T',year:'2021',price:'₪ 275,000',img:'https://images.unsplash.com/photo-1535732759880-bbd5c7265e3f?w=400&q=70'},{name:'פורד מוסטנג Ecoboost',year:'2023',price:'₪ 210,000',img:'https://images.unsplash.com/photo-1547245324-d777c6f05e80?w=400&q=70'}];
+function calcPMT(principal,annualRate,months){if(months===1)return principal;const r=annualRate/100/12;const factor=Math.pow(1+r,months);return principal*(r*factor)/(factor-1)}
+function fmtILS(n){return'₪\u202F'+Math.round(n).toLocaleString('he-IL')}
+let activeThumb=0;
+(function buildGallery(){const container=document.getElementById('thumbs');IMAGES.forEach((img,i)=>{const div=document.createElement('div');div.className='thumb'+(i===0?' active':'');div.innerHTML=`<img src="${img.thumb}" alt="${img.alt}" loading="lazy"><div class="thumb-overlay"></div>`;div.addEventListener('click',()=>setImage(i));container.appendChild(div)})})();
+function setImage(idx){if(idx===activeThumb)return;const mainImg=document.getElementById('mainImg');mainImg.style.opacity='0';setTimeout(()=>{mainImg.src=IMAGES[idx].full;mainImg.alt=IMAGES[idx].alt;mainImg.style.opacity='1'},200);document.querySelectorAll('.thumb').forEach((t,i)=>{t.classList.toggle('active',i===idx)});activeThumb=idx}
+(function buildRelated(){const grid=document.getElementById('relatedGrid');RELATED.forEach(car=>{const card=document.createElement('div');card.className='related-card';card.innerHTML=`<img class="related-img" src="${car.img}" alt="${car.name}" loading="lazy"><div class="related-body"><div class="related-name">${car.name}</div><div class="related-year">${car.year} · אוטומטי</div><div class="related-price">${car.price}</div></div>`;card.addEventListener('click',()=>{alert('מעבר לדף הרכב: '+car.name)});grid.appendChild(card)})})();
+function onSlide(slider){const months=parseInt(slider.value,10);const fillPct=((months-1)/59*100).toFixed(1)+'%';slider.style.setProperty('--fill',fillPct);const monthly=calcPMT(CAR_PRICE,ANNUAL_RATE,months);const totalCost=monthly*months;const totalInterest=totalCost-CAR_PRICE;document.getElementById('sliderPill').textContent=months;const payEl=document.getElementById('payNum');payEl.classList.remove('pop');void payEl.offsetWidth;payEl.textContent=Math.round(monthly).toLocaleString('he-IL');payEl.classList.add('pop');document.getElementById('payPeriod').textContent=`${months} תשלומים · ריבית שנתית ${ANNUAL_RATE}%`;document.getElementById('bInterest').textContent=fmtILS(totalInterest);document.getElementById('bTotal').textContent=fmtILS(totalCost);document.getElementById('bRate').textContent=ANNUAL_RATE.toFixed(2)+'%'}
+(function init(){const slider=document.getElementById('monthSlider');slider.value=36;onSlide(slider)})();
+function showModal(){const months=document.getElementById('monthSlider').value;const sel=document.getElementById('modalMonths');const options=[12,24,36,48,60];const closest=options.reduce((a,b)=>Math.abs(b-months)<Math.abs(a-months)?b:a);sel.value=closest+' תשלומים';const modal=document.getElementById('modal');modal.style.display='flex';document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('modal').style.display='none';document.body.style.overflow=''}
+function submitForm(){alert('✅ בקשתך התקבלה! נציג מכירות יצור איתך קשר בקרוב.');closeModal()}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal()});
+</script>
+</body>
+</html>
+```
