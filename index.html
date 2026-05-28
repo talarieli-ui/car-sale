@@ -87,16 +87,17 @@ h1{font-size:2rem;margin-bottom:2rem;font-weight:900;font-family:'Frank Ruhl Lib
 .mf-top{display:flex;justify-content:space-between;font-size:.75rem;color:#999;margin-bottom:.3rem}
 .mfslider{width:100%;-webkit-appearance:none;appearance:none;height:5px;background:#E0DEDA;border-radius:3px;outline:none;cursor:pointer;margin-bottom:.7rem}
 .mfslider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#C9A84C,#e0c06a);cursor:pointer;border:2px solid white;box-shadow:0 2px 8px rgba(201,168,76,.4)}
-.mf-result{display:flex;justify-content:space-between;align-items:center;padding:.6rem .8rem;background:white;border-radius:10px;border:1px solid #eee}
+.mf-result{display:flex;justify-content:center;align-items:center;padding:.6rem .8rem;background:white;border-radius:10px;border:1px solid #eee}
 .mf-pmt{font-size:1.15rem;font-weight:900;color:#C9A84C}
 
 
 /* CTA */
-.mcta-wrap{display:flex;justify-content:center;margin-top:1.2rem;animation:fu .4s ease .25s both}
-.mcta{display:inline-flex;align-items:center;gap:.5rem;padding:12px 32px;background:linear-gradient(135deg,#0B1F3A,#142d52);color:white;border:none;border-radius:50px;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .25s;letter-spacing:.3px;box-shadow:0 4px 15px rgba(11,31,58,.25)}
-.mcta:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(11,31,58,.35);background:linear-gradient(135deg,#142d52,#1a3a6a)}
-.mcta:active{transform:translateY(0)}
-.mcta-icon{font-size:1.1rem}
+.mcta-wrap{display:flex;gap:10px;margin-top:1.2rem;animation:fu .4s ease .25s both}
+.mcta{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:11px 16px;background:#0B1F3A;color:white;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s}
+.mcta:hover{background:#142d52;transform:translateY(-1px)}
+.mcta-call{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:11px 16px;background:white;color:#0B1F3A;border:2px solid #0B1F3A;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s}
+.mcta-call:hover{background:#f5f5f5;transform:translateY(-1px)}
+.mcta-icon{font-size:.95rem}
 
 @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
