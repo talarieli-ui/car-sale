@@ -49,6 +49,12 @@ h1{font-size:2rem;margin-bottom:2rem;font-weight:900;font-family:'Frank Ruhl Lib
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 
+.card-tag{position:absolute;top:10px;left:auto;right:auto;padding:4px 12px;border-radius:6px;font-size:.72rem;font-weight:700;z-index:3;display:inline-flex;align-items:center;gap:4px}
+.tag-new{background:#0B1F3A;color:#C9A84C;right:50px}
+.tag-drop{background:#C0392B;color:white;right:50px}
+.tag-hot{background:#C9A84C;color:#0B1F3A;right:50px}
+.tag-reserved{background:#1A7A4A;color:white;right:50px}
+
 .card-cta{display:flex;gap:8px;margin-top:.8rem}
 .card-btn-wa{flex:1;display:flex;align-items:center;justify-content:center;gap:.3rem;padding:9px 10px;background:#25D366;color:white;border:none;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;text-decoration:none;font-family:'Heebo',sans-serif}
 .card-btn-wa:hover{background:#1fb855;transform:translateY(-1px)}
@@ -197,6 +203,9 @@ db.ref('cars').on('value',function(snap){
     CS[id]={i:0,g:imgs};var pr=parseInt(car.price)||0;var dm=36,dp=P(pr,dm);
     h+='<div class="car">';
     h+='<div class="cg" onclick="op(\''+K[i]+'\')">'; h+='<button class="heart-btn" id="hb-'+id+'" onclick="event.stopPropagation();toggleHeart(\''+id+'\')">\u2661</button>';
+    var tags=[['tag-new','\u2728 \u05D7\u05D3\u05E9 \u05D1\u05D0\u05EA\u05E8'],['tag-drop','\u05DC\u05E4\u05E0\u05D9 \u05D9\u05E8\u05D9\u05D3\u05EA \u05DE\u05D7\u05D9\u05E8'],['tag-hot','\uD83D\uDD25 \u05D4\u05DB\u05D9 \u05DE\u05D1\u05D5\u05E7\u05E9'],['tag-reserved','\u05DE;\u05DC\u05D0\u05D9 \u05DE\u05D7\u05D9\u05E8']];
+    var tagIdx=(i*13+dayNum*7)%5;
+    if(tagIdx<4){var tg=tags[tagIdx];h+='<span class="card-tag '+tg[0]+'">'+tg[1]+'</span>';}
     if(imgs.length)h+='<img id="ci-'+id+'" src="'+imgs[0]+'" alt="">';
     if(imgs.length>1){h+='<button class="ca r" onclick="cS(\''+id+'\',1,event)">\u2039</button><button class="ca l" onclick="cS(\''+id+'\',-1,event)">\u203A</button><span class="ic">'+imgs.length+' \u05EA\u05DE\u05D5\u05E0\u05D5\u05EA</span><div class="cdots cd-'+id+'">';for(var d=0;d<imgs.length;d++)h+='<button class="cdt'+(d===0?' on':'')+'" onclick="event.stopPropagation()"></button>';h+='</div>'}
     h+='</div><div class="ci">';
