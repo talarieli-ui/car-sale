@@ -196,7 +196,7 @@ function sendWA(carName){
 db.ref('cars').on('value',function(snap){
   var data=snap.val(),c=document.getElementById('cars');
   if(!data){c.innerHTML='<p style="text-align:center;color:#999;padding:3rem">\u05D0\u05D9\u05DF \u05E8\u05DB\u05D1\u05D9\u05DD</p>';return}
-  AC=data;var h='<div class="cars">',K=Object.keys(data);
+  AC=data;var h='<div class="cars">',K=Object.keys(data);var now=new Date();var dayNum=now.getHours()<7?now.getDate()-1:now.getDate();
   for(var i=0;i<K.length;i++){
     var car=data[K[i]],id=K[i].replace(/[^a-zA-Z0-9]/g,''),imgs=car.images||[];
     if(!imgs.length&&car.image_url)imgs=[car.image_url];
@@ -215,7 +215,7 @@ db.ref('cars').on('value',function(snap){
     h+='<div class="fb"><div class="fl"><span>\u05DE\u05D9\u05DE\u05D5\u05DF \u05D7\u05D5\u05D3\u05E9\u05D9</span><span id="fm-'+id+'">'+dm+' \u05D7\u05D5\u05D3\u05E9\u05D9\u05DD</span></div>';
     h+='<input type="range" min="1" max="60" value="'+dm+'" class="fslider" onclick="event.stopPropagation()" oninput="uC(\''+id+'\','+pr+',this.value)">';
     h+='<div class="frow"><div class="fpmt" id="fp-'+id+'">'+F(dp)+' \u20AA / \u05D7\u05D5\u05D3\u05E9</div></div></div>';
-    var now=new Date();var dayNum=now.getHours()<7?now.getDate()-1:now.getDate();var seed=((dayNum*31+i*17+7)%400)+150;var views=seed; h+='<div class="cbadge">\u05DC\u05D7\u05E5 \u05DC\u05E4\u05E8\u05D8\u05D9\u05DD</div>'; h+='<div class="viewers"><span class="viewers-dot"></span>'+views+' \u05E6\u05E4\u05D5 \u05D1\u05E8\u05DB\u05D1 \u05D4\u05D9\u05D5\u05DD</div>';
+    var seed=((dayNum*31+i*17+7)%400)+150;var views=seed; h+='<div class="cbadge">\u05DC\u05D7\u05E5 \u05DC\u05E4\u05E8\u05D8\u05D9\u05DD</div>'; h+='<div class="viewers"><span class="viewers-dot"></span>'+views+' \u05E6\u05E4\u05D5 \u05D1\u05E8\u05DB\u05D1 \u05D4\u05D9\u05D5\u05DD</div>';
     h+='<div class="info-wrap"><button class="info-btn" onclick="event.stopPropagation();toggleTip(\'tip-'+id+'\')">i</button>';
     h+='<div class="info-tip" id="tip-'+id+'">';
     h+='<div class="tip-row"><div class="tip-icon">\uD83D\uDEE1\uFE0F</div>\u05D0\u05D7\u05E8\u05D9\u05D5\u05EA \u05DE\u05DC\u05D0\u05D4 \u05E2\u05DC \u05D4\u05E8\u05DB\u05D1</div>';
