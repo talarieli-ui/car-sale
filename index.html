@@ -147,7 +147,7 @@ function uC(id,pr,val){
   var m=parseInt(val),p=P(pr,m),t=T(pr,m);
   document.getElementById('fp-'+id).innerHTML=F(p)+' \u20AA / \u05D7\u05D5\u05D3\u05E9';
   document.getElementById('fm-'+id).innerHTML=m===1?'\u05EA\u05E9\u05DC\u05D5\u05DD \u05D0\u05D7\u05D3':m+' \u05D7\u05D5\u05D3\u05E9\u05D9\u05DD';
-  document.getElementById('ft-'+id).innerHTML=m===1?'':'\u05E1\u05D4"\u05DB: '+F(t)+' \u20AA';
+  
 }
 
 function sendWA(carName){
@@ -217,7 +217,7 @@ function mc(pr){
   var m=parseInt(document.getElementById('msl').value),p=P(pr,m),t=T(pr,m);
   document.getElementById('mpm').innerHTML=F(p)+' \u20AA / \u05D7\u05D5\u05D3\u05E9';
   document.getElementById('mmn').innerHTML=m===1?'\u05EA\u05E9\u05DC\u05D5\u05DD \u05D0\u05D7\u05D3':m+' \u05D7\u05D5\u05D3\u05E9\u05D9\u05DD';
-  document.getElementById('mtt').innerHTML=m===1?'':'\u05E1\u05D4"\u05DB \u05DC\u05EA\u05E9\u05DC\u05D5\u05DD: '+F(t)+' \u20AA';
+  
 }
 document.addEventListener('keydown',function(e){if(!document.getElementById('ov').classList.contains('active'))return;if(e.key==='Escape')cl();if(e.key==='ArrowRight')ms(-1);if(e.key==='ArrowLeft')ms(1)});
 </script>
