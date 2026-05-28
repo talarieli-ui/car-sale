@@ -49,11 +49,11 @@ h1{font-size:2rem;margin-bottom:2rem;font-weight:900;font-family:'Frank Ruhl Lib
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 
-.card-tag{position:absolute;top:10px;left:10px;padding:5px 12px;border-radius:8px;font-size:.75rem;font-weight:700;z-index:3;display:inline-flex;align-items:center;gap:4px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.tag-new{background:#0B1F3A;color:#C9A84C}
-.tag-drop{background:#C0392B;color:white}
-.tag-hot{background:#C9A84C;color:#0B1F3A}
-.tag-reserved{background:#1A7A4A;color:white}
+.card-tag{position:absolute;bottom:0;right:0;left:0;padding:6px 12px;font-size:.75rem;font-weight:700;z-index:3;display:flex;align-items:center;justify-content:center;gap:5px}
+.tag-new{background:rgba(11,31,58,.85);color:#C9A84C}
+.tag-drop{background:rgba(192,57,43,.85);color:white}
+.tag-hot{background:rgba(201,168,76,.9);color:#0B1F3A}
+.tag-reserved{background:rgba(26,122,74,.85);color:white}
 
 .card-cta{display:flex;gap:8px;margin-top:.8rem}
 .card-btn-wa{flex:1;display:flex;align-items:center;justify-content:center;gap:.3rem;padding:9px 10px;background:#25D366;color:white;border:none;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;text-decoration:none;font-family:'Heebo',sans-serif}
@@ -204,8 +204,8 @@ db.ref('cars').on('value',function(snap){
     h+='<div class="car" onclick="op(\''+K[i]+'\')">'; 
     h+='<div class="cg">'; h+='<button class="heart-btn" id="hb-'+id+'" onclick="event.stopPropagation();toggleHeart(\''+id+'\')">\u2661</button>';
     var tags=[['tag-new','\u2728 \u05D7\u05D3\u05E9 \u05D1\u05D0\u05EA\u05E8'],['tag-drop','\u26A1 \u05D9\u05E8\u05D9\u05D3\u05EA \u05DE\u05D7\u05D9\u05E8'],['tag-hot','\uD83D\uDD25 \u05D4\u05DB\u05D9 \u05DE\u05D1\u05D5\u05E7\u05E9'],['tag-reserved','\u23F0 \u05DE\u05DC\u05D0\u05D9 \u05D0\u05D7\u05E8\u05D5\u05DF']];
-    var tagIdx=(i*13+dayNum*7)%5;
-    if(tagIdx<4){var tg=tags[tagIdx];h+='<span class="card-tag '+tg[0]+'">'+tg[1]+'</span>';}
+    var tagIdx=(i*13+dayNum*7)%4;
+    var tg=tags[tagIdx];h+='<span class="card-tag '+tg[0]+'">'+tg[1]+'</span>';
     if(imgs.length)h+='<img id="ci-'+id+'" src="'+imgs[0]+'" alt="">';
     if(imgs.length>1){h+='<button class="ca r" onclick="cS(\''+id+'\',1,event)">\u2039</button><button class="ca l" onclick="cS(\''+id+'\',-1,event)">\u203A</button><span class="ic">'+imgs.length+' \u05EA\u05DE\u05D5\u05E0\u05D5\u05EA</span><div class="cdots cd-'+id+'">';for(var d=0;d<imgs.length;d++)h+='<button class="cdt'+(d===0?' on':'')+'" onclick="event.stopPropagation()"></button>';h+='</div>'}
     h+='</div><div class="ci">';
