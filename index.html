@@ -48,6 +48,12 @@ h1{font-size:2rem;margin-bottom:2rem;font-weight:900;font-family:'Frank Ruhl Lib
 .viewers-dot{width:6px;height:6px;background:#4CAF50;border-radius:50%;animation:pulse 1.5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
+
+.bubble{background:linear-gradient(135deg,#0B1F3A,#142d52);border-radius:14px;padding:.9rem 1rem;margin-bottom:1rem;animation:fu .4s ease .12s both;position:relative}
+.bubble-row{display:flex;align-items:center;gap:8px;padding:5px 0;color:rgba(255,255,255,.9);font-size:.8rem;font-weight:500}
+.bubble-icon{width:24px;height:24px;background:rgba(201,168,76,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0}
+.bubble-divider{height:1px;background:rgba(255,255,255,.08);margin:3px 0}
+
 /* ========== MODAL ========== */
 .ov{display:none;position:fixed;inset:0;background:rgba(8,18,35,.55);z-index:1000;padding:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .ov.active{display:flex;justify-content:center;align-items:center}
@@ -207,6 +213,15 @@ function op(key){
   h+='<div class="mspec"><div class="mspec-icon">\uD83D\uDCC5</div><div class="mspec-label">\u05E9\u05E0\u05D4</div><div class="mspec-val">'+(car.year||'')+'</div></div>';
   h+='<div class="mspec"><div class="mspec-icon">\u2699\uFE0F</div><div class="mspec-label">\u05DE\u05E0\u05D5\u05E2</div><div class="mspec-val">'+(car.engine||'')+'</div></div>';
   h+='<div class="mspec"><div class="mspec-icon">\uD83D\uDEE3\uFE0F</div><div class="mspec-label">\u05E7\u05D9\u05DC\u05D5\u05DE\u05D8\u05E8\u05D6</div><div class="mspec-val">'+F(car.km||0)+'</div></div>';
+  h+='</div>';
+  h+='<div class="bubble">';
+  h+='<div class="bubble-row"><div class="bubble-icon">\uD83D\uDEE1\uFE0F</div>\u05D0\u05D7\u05E8\u05D9\u05D5\u05EA \u05DE\u05DC\u05D0\u05D4 \u05E2\u05DC \u05D4\u05E8\u05DB\u05D1</div>';
+  h+='<div class="bubble-divider"></div>';
+  h+='<div class="bubble-row"><div class="bubble-icon">\uD83D\uDD27</div>\u05D4\u05EA\u05D7\u05D9\u05D9\u05D1\u05D5\u05EA \u05DC\u05D1\u05D3\u05D9\u05E7\u05EA \u05D2\u05D9\u05E8, \u05DE\u05E0\u05D5\u05E2 \u05D5\u05E9\u05DC\u05D3\u05D4</div>';
+  h+='<div class="bubble-divider"></div>';
+  h+='<div class="bubble-row"><div class="bubble-icon">\uD83E\uDD1D</div>\u05D4\u05EA\u05D7\u05D9\u05D9\u05D1\u05D5\u05EA \u05DC\u05D8\u05E8\u05D9\u05D9\u05D3 \u05D0\u05D9\u05DF \u05E2\u05EA\u05D9\u05D3\u05D9</div>';
+  h+='<div class="bubble-divider"></div>';
+  h+='<div class="bubble-row"><div class="bubble-icon">\uD83D\uDCB0</div>\u05E2\u05D3 100% \u05DE\u05D9\u05DE\u05D5\u05DF \u05D1\u05EA\u05E0\u05D0\u05D9\u05DD \u05E0\u05D5\u05D7\u05D9\u05DD</div>';
   h+='</div>';
   if(car.description)h+='<div class="mdesc">'+car.description+'</div>';
   h+='<div class="mprice-row"><div class="mprice-num">'+F(pr)+'</div><div class="mprice-curr">\u20AA</div></div>';
