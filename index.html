@@ -125,8 +125,12 @@ h1{font-size:2rem;margin-bottom:2rem;font-weight:900;font-family:'Frank Ruhl Lib
 </div>
 <div class="ov" id="ov" onclick="if(event.target===this)cl()"><div class="ml" id="ml"></div></div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js">
+function sendWA(carName){var msg=encodeURIComponent('\u05D4;\u05D9;, \u05D0;\u05E0;\u05D9; \u05DE;\u05E2;\u05D5;\u05E0;\u05D9;\u05D9;\u05DF; \u05D1;\u05E8;\u05DB;\u05D1; '+decodeURIComponent(carName)+'. \u05D0;\u05E9;\u05DE;\u05D7; \u05DC;\u05E4;\u05E8;\u05D8;\u05D9;\u05DD; \u05E0;\u05D5;\u05E1;\u05E4;\u05D9;\u05DD.');window.open('https://wa.me/972559895320?text='+msg,'_blank')}
+</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js">
+function sendWA(carName){var msg=encodeURIComponent('\u05D4;\u05D9;, \u05D0;\u05E0;\u05D9; \u05DE;\u05E2;\u05D5;\u05E0;\u05D9;\u05D9;\u05DF; \u05D1;\u05E8;\u05DB;\u05D1; '+decodeURIComponent(carName)+'. \u05D0;\u05E9;\u05DE;\u05D7; \u05DC;\u05E4;\u05E8;\u05D8;\u05D9;\u05DD; \u05E0;\u05D5;\u05E1;\u05E4;\u05D9;\u05DD.');window.open('https://wa.me/972559895320?text='+msg,'_blank')}
+</script>
 <script>
 firebase.initializeApp({apiKey:"AIzaSyCUC4ConlLR7nONsqECFc_8S5_rO9oiwuQ",authDomain:"car-sales-7ddec.firebaseapp.com",databaseURL:"https://car-sales-7ddec-default-rtdb.firebaseio.com",projectId:"car-sales-7ddec",storageBucket:"car-sales-7ddec.firebasestorage.app",messagingSenderId:"360924922585",appId:"1:360924922585:web:0f18b076fff3e82460f4c8"});
 var db=firebase.database(),AC={},CS={},mi=0,mI=[];
@@ -151,7 +155,7 @@ db.ref('cars').on('value',function(snap){
     h+='<div class="cn" onclick="op(\''+K[i]+'\')">'+(car.name||'')+'</div>';
     h+='<div class="cmeta">'+(car.year||'')+' &middot; '+(car.engine||'')+' &middot; '+F(car.km||0)+' &#x05E7;"&#x05DE;</div>';
     h+='<div class="cprice">'+F(pr)+' &#8362;</div>';
-    h+='<div class="fb"><div class="fl"><span>&#x05DE;&#x05D9;&#x05DE;&#x05D5;&#x05DF; &#x05D7;&#x05D5;&#x05D3;&#x05E9;&#x05D9; (5% &#x05E8;&#x05D9;&#x05D1;&#x05D9;&#x05EA;)</span><span id="fm-'+id+'">'+dm+' &#x05D7;&#x05D5;&#x05D3;&#x05E9;&#x05D9;&#x05DD;</span></div>';
+    h+='<div class="fb"><div class="fl"><span>&#x05DE;&#x05D9;&#x05DE;&#x05D5;&#x05DF; &#x05D7;&#x05D5;&#x05D3;&#x05E9;&#x05D9;</span><span id="fm-'+id+'">'+dm+' &#x05D7;&#x05D5;&#x05D3;&#x05E9;&#x05D9;&#x05DD;</span></div>';
     h+='<input type="range" min="1" max="60" value="'+dm+'" class="fslider" oninput="uC(\''+id+'\','+pr+',this.value)">';
     h+='<div class="frow"><div class="fpmt" id="fp-'+id+'">'+F(dp)+' &#8362; / &#x05D7;&#x05D5;&#x05D3;&#x05E9;</div><div class="ftot" id="ft-'+id+'">&#x05E1;&#x05D4;"&#x05DB;: '+F(dp*dm)+' &#8362;</div></div></div>';
     h+='<div class="cbadge" onclick="op(\''+K[i]+'\')">&#x05DC;&#x05D7;&#x05E5; &#x05DC;&#x05E4;&#x05E8;&#x05D8;&#x05D9;&#x05DD;</div>';
@@ -178,7 +182,7 @@ function op(key){
   h+='</div>';
   if(car.description)h+='<div class="mdesc">'+car.description+'</div>';
   h+='<div class="mprice-row"><div class="mprice-num">'+F(pr)+'</div><div class="mprice-curr">&#8362;</div></div>';
-  h+='<div class="mfin"><div class="mfin-title">&#x1F4B0; &#x05DE;&#x05D7;&#x05E9;&#x05D1;&#x05D5;&#x05DF; &#x05DE;&#x05D9;&#x05DE;&#x05D5;&#x05DF; &mdash; <span>5% &#x05E8;&#x05D9;&#x05D1;&#x05D9;&#x05EA;</span></div>';
+  h+='<div class="mfin"><div class="mfin-title">&#x1F4B0; &#x05DE;&#x05D7;&#x05E9;&#x05D1;&#x05D5;&#x05DF; &#x05DE;&#x05D9;&#x05DE;&#x05D5;&#x05DF;</div>';
   h+='<div class="mf-top"><span>&#x05EA;&#x05E7;&#x05D5;&#x05E4;&#x05D4;</span><span id="mmn">'+dm+' &#x05D7;&#x05D5;&#x05D3;&#x05E9;&#x05D9;&#x05DD;</span></div>';
   h+='<input type="range" min="1" max="60" value="'+dm+'" class="mfslider" id="msl" oninput="mc('+pr+')">';
   h+='<div class="mf-result"><div class="mf-pmt" id="mpm">'+F(dp)+' &#8362; / &#x05D7;&#x05D5;&#x05D3;&#x05E9;</div><div class="mf-tot" id="mtt">&#x05E1;&#x05D4;"&#x05DB; &#x05DC;&#x05EA;&#x05E9;&#x05DC;&#x05D5;&#x05DD;: '+F(dp*dm)+' &#8362;</div></div></div>';
@@ -194,6 +198,8 @@ function mg(i){mi=i;mu()}
 function mu(){document.getElementById('mimg').src=mI[mi];var c=document.getElementById('mcn');if(c)c.innerHTML=(mi+1)+' / '+mI.length;var t=document.querySelectorAll('#mth img');for(var i=0;i<t.length;i++)t[i].className=i===mi?'a':''}
 function mc(pr){var m=parseInt(document.getElementById('msl').value),p=P(pr,m,5);document.getElementById('mpm').innerHTML=F(p)+' &#8362; / &#x05D7;&#x05D5;&#x05D3;&#x05E9;';document.getElementById('mmn').innerHTML=m+' &#x05D7;&#x05D5;&#x05D3;&#x05E9;&#x05D9;&#x05DD;';document.getElementById('mtt').innerHTML='&#x05E1;&#x05D4;"&#x05DB; &#x05DC;&#x05EA;&#x05E9;&#x05DC;&#x05D5;&#x05DD;: '+F(p*m)+' &#8362;'}
 document.addEventListener('keydown',function(e){if(!document.getElementById('ov').classList.contains('active'))return;if(e.key==='Escape')cl();if(e.key==='ArrowRight')ms(-1);if(e.key==='ArrowLeft')ms(1)});
+
+function sendWA(carName){var msg=encodeURIComponent('\u05D4;\u05D9;, \u05D0;\u05E0;\u05D9; \u05DE;\u05E2;\u05D5;\u05E0;\u05D9;\u05D9;\u05DF; \u05D1;\u05E8;\u05DB;\u05D1; '+decodeURIComponent(carName)+'. \u05D0;\u05E9;\u05DE;\u05D7; \u05DC;\u05E4;\u05E8;\u05D8;\u05D9;\u05DD; \u05E0;\u05D5;\u05E1;\u05E4;\u05D9;\u05DD.');window.open('https://wa.me/972559895320?text='+msg,'_blank')}
 </script>
 </body>
 </html>
