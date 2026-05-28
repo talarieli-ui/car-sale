@@ -173,7 +173,7 @@ db.ref('cars').on('value',function(snap){
     h+='<div class="cprice">'+F(pr)+' \u20AA</div>';
     h+='<div class="fb"><div class="fl"><span>\u05DE\u05D9\u05DE\u05D5\u05DF \u05D7\u05D5\u05D3\u05E9\u05D9</span><span id="fm-'+id+'">'+dm+' \u05D7\u05D5\u05D3\u05E9\u05D9\u05DD</span></div>';
     h+='<input type="range" min="1" max="60" value="'+dm+'" class="fslider" oninput="uC(\''+id+'\','+pr+',this.value)">';
-    h+='<div class="frow"><div class="fpmt" id="fp-'+id+'">'+F(dp)+' \u20AA / \u05D7\u05D5\u05D3\u05E9</div><div class="ftot" id="ft-'+id+'">\u05E1\u05D4"\u05DB: '+F(T(pr,dm))+' \u20AA</div></div></div>';
+    h+='<div class="frow"><div class="fpmt" id="fp-'+id+'">'+F(dp)+' \u20AA / \u05D7\u05D5\u05D3\u05E9</div></div></div>';
     h+='<div class="cbadge" onclick="op(\''+K[i]+'\')">\u05DC\u05D7\u05E5 \u05DC\u05E4\u05E8\u05D8\u05D9\u05DD</div>';
     h+='</div></div>';
   }
@@ -202,7 +202,7 @@ function op(key){
   h+='<div class="mfin"><div class="mfin-title">\uD83D\uDCB0 \u05DE\u05D7\u05E9\u05D1\u05D5\u05DF \u05DE\u05D9\u05DE\u05D5\u05DF</div>';
   h+='<div class="mf-top"><span>\u05EA\u05E7\u05D5\u05E4\u05D4</span><span id="mmn">'+dm+' \u05D7\u05D5\u05D3\u05E9\u05D9\u05DD</span></div>';
   h+='<input type="range" min="1" max="60" value="'+dm+'" class="mfslider" id="msl" oninput="mc('+pr+')">';
-  h+='<div class="mf-result"><div class="mf-pmt" id="mpm">'+F(dp)+' \u20AA / \u05D7\u05D5\u05D3\u05E9</div><div class="mf-tot" id="mtt">\u05E1\u05D4"\u05DB \u05DC\u05EA\u05E9\u05DC\u05D5\u05DD: '+F(T(pr,dm))+' \u20AA</div></div></div>';
+  h+='<div class="mf-result"><div class="mf-pmt" id="mpm">'+F(dp)+' \u20AA / \u05D7\u05D5\u05D3\u05E9</div></div></div>';
   h+='<div class="mcta-wrap"><button class="mcta" onclick="sendWA(\''+carName.replace(/'/g,"\\'")+'\')">\uD83D\uDCDE \u05D0\u05E0\u05D9 \u05DE\u05E2\u05D5\u05E0\u05D9\u05D9\u05DF \u2014 \u05E6\u05E8\u05D5 \u05E7\u05E9\u05E8</button></div>';
   h+='</div>';
   document.getElementById('ml').innerHTML=h;
