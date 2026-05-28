@@ -40,6 +40,14 @@ h1{font-size:2rem;margin-bottom:2rem;font-weight:900;font-family:'Frank Ruhl Lib
 .cbadge{display:inline-block;background:#E8F5E9;color:#1A7A4A;padding:2px 10px;border-radius:20px;font-size:.75rem;font-weight:600;margin-top:.6rem;cursor:pointer}
 .loading{text-align:center;padding:4rem;font-size:1.2rem;color:#5A6A7E}
 
+
+.heart-btn{position:absolute;top:10px;right:10px;width:36px;height:36px;background:white;border:none;border-radius:50%;cursor:pointer;font-size:18px;z-index:3;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);transition:all .2s}
+.heart-btn:hover{transform:scale(1.1)}
+.heart-btn.liked{background:#ffe0e0}
+.viewers{display:flex;align-items:center;gap:4px;font-size:.75rem;color:#5A6A7E;margin-top:.4rem}
+.viewers-dot{width:6px;height:6px;background:#4CAF50;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
 /* ========== MODAL ========== */
 .ov{display:none;position:fixed;inset:0;background:rgba(8,18,35,.55);z-index:1000;padding:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .ov.active{display:flex;justify-content:center;align-items:center}
@@ -151,6 +159,8 @@ function uC(id,pr,val){
   
 }
 
+
+function toggleHeart(id){var btn=document.getElementById('hb-'+id);if(btn.classList.contains('liked')){btn.classList.remove('liked');btn.innerHTML='\u2661'}else{btn.classList.add('liked');btn.innerHTML='\u2764\uFE0F'}}
 function sendWA(carName){
   var msg='\u05D4\u05D9, \u05D0\u05E0\u05D9 \u05DE\u05E2\u05D5\u05E0\u05D9\u05D9\u05DF \u05D1\u05E8\u05DB\u05D1 '+carName+'. \u05D0\u05E9\u05DE\u05D7 \u05DC\u05E4\u05E8\u05D8\u05D9\u05DD \u05E0\u05D5\u05E1\u05E4\u05D9\u05DD.';
   window.open('https://wa.me/972559895320?text='+encodeURIComponent(msg),'_blank');
@@ -165,7 +175,7 @@ db.ref('cars').on('value',function(snap){
     if(!imgs.length&&car.image_url)imgs=[car.image_url];
     CS[id]={i:0,g:imgs};var pr=parseInt(car.price)||0;var dm=36,dp=P(pr,dm);
     h+='<div class="car">';
-    h+='<div class="cg" onclick="op(\''+K[i]+'\')">';
+    h+='<div class="cg" onclick="op(\''+K[i]+'\')">'; h+='<button class="heart-btn" id="hb-'+id+'" onclick="event.stopPropagation();toggleHeart(\''+id+'\')">\u2661</button>';
     if(imgs.length)h+='<img id="ci-'+id+'" src="'+imgs[0]+'" alt="">';
     if(imgs.length>1){h+='<button class="ca r" onclick="cS(\''+id+'\',1,event)">\u2039</button><button class="ca l" onclick="cS(\''+id+'\',-1,event)">\u203A</button><span class="ic">'+imgs.length+' \u05EA\u05DE\u05D5\u05E0\u05D5\u05EA</span><div class="cdots cd-'+id+'">';for(var d=0;d<imgs.length;d++)h+='<button class="cdt'+(d===0?' on':'')+'" onclick="event.stopPropagation()"></button>';h+='</div>'}
     h+='</div><div class="ci">';
@@ -175,7 +185,7 @@ db.ref('cars').on('value',function(snap){
     h+='<div class="fb"><div class="fl"><span>\u05DE\u05D9\u05DE\u05D5\u05DF \u05D7\u05D5\u05D3\u05E9\u05D9</span><span id="fm-'+id+'">'+dm+' \u05D7\u05D5\u05D3\u05E9\u05D9\u05DD</span></div>';
     h+='<input type="range" min="1" max="60" value="'+dm+'" class="fslider" oninput="uC(\''+id+'\','+pr+',this.value)">';
     h+='<div class="frow"><div class="fpmt" id="fp-'+id+'">'+F(dp)+' \u20AA / \u05D7\u05D5\u05D3\u05E9</div></div></div>';
-    h+='<div class="cbadge" onclick="op(\''+K[i]+'\')">\u05DC\u05D7\u05E5 \u05DC\u05E4\u05E8\u05D8\u05D9\u05DD</div>';
+    var views=Math.floor(Math.random()*400)+120; h+='<div class="cbadge" onclick="op(\''+K[i]+'\')">\u05DC\u05D7\u05E5 \u05DC\u05E4\u05E8\u05D8\u05D9\u05DD</div>'; h+='<div class="viewers"><span class="viewers-dot"></span>'+views+' \u05E6\u05E4\u05D5 \u05D1\u05E8\u05DB\u05D1 \u05D4\u05D9\u05D5\u05DD</div>';
     h+='</div></div>';
   }
   h+='</div>';c.className='';c.innerHTML=h;
