@@ -112,10 +112,10 @@ h1{font-size:2rem;margin-bottom:2rem;font-weight:900;font-family:'Frank Ruhl Lib
 
 
 /* CTA */
-.mcta-wrap{display:flex;gap:10px;margin-top:1.2rem;animation:fu .4s ease .25s both}
-.mcta{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:11px 16px;background:#0B1F3A;color:white;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s}
+.mcta-foot{display:flex;gap:10px;padding:1rem 1.4rem;background:white;border-top:1px solid #eee;flex-shrink:0}
+.mcta{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:11px 16px;background:#0B1F3A;color:white;border:none;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;text-decoration:none}
 .mcta:hover{background:#142d52;transform:translateY(-1px)}
-.mcta-call{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:11px 16px;background:white;color:#0B1F3A;border:2px solid #0B1F3A;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s}
+.mcta-call{flex:1;display:flex;align-items:center;justify-content:center;gap:.4rem;padding:11px 16px;background:white;color:#0B1F3A;border:2px solid #0B1F3A;border-radius:10px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;text-decoration:none}
 .mcta-call:hover{background:#f5f5f5;transform:translateY(-1px)}
 .mcta-icon{font-size:.95rem}
 
@@ -240,8 +240,9 @@ function op(key){
   h+='<div class="mf-top"><span>\u05EA\u05E7\u05D5\u05E4\u05D4</span><span id="mmn">'+dm+' \u05D7\u05D5\u05D3\u05E9\u05D9\u05DD</span></div>';
   h+='<input type="range" min="1" max="60" value="'+dm+'" class="mfslider" id="msl" oninput="mc('+pr+')">';
   h+='<div class="mf-result"><div class="mf-pmt" id="mpm">'+F(dp)+' \u20AA / \u05D7\u05D5\u05D3\u05E9</div></div></div>';
-  h+='<div class="mcta-wrap"><button class="mcta" onclick="sendWA(\''+carName.replace(/'/g,"\\'")+'\')">\uD83D\uDCDE \u05D0\u05E0\u05D9 \u05DE\u05E2\u05D5\u05E0\u05D9\u05D9\u05DF \u2014 \u05E6\u05E8\u05D5 \u05E7\u05E9\u05E8</button></div>';
   h+='</div>';
+  h+='<div class="mcta-foot"><button class="mcta" onclick="sendWA(\''+carName.replace(/'/g,"\\'")+'\')"><span class="mcta-icon">\uD83D\uDCF2</span> WhatsApp</button><a href="tel:0559895320" class="mcta-call" onclick="event.stopPropagation()"><span class="mcta-icon">\uD83D\uDCDE</span> \u05D4\u05EA\u05E7\u05E9\u05E8\u05D5</a></div>';
+  
   document.getElementById('ml').innerHTML=h;
   document.getElementById('ov').classList.add('active');
   document.body.classList.add('noscroll');
