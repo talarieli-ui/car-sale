@@ -30,13 +30,16 @@ h1{font-size:2rem;margin-bottom:2rem;font-weight:900;font-family:'Frank Ruhl Lib
 .cn{font-size:1.15rem;font-weight:800;margin-bottom:.3rem;cursor:pointer}
 .cmeta{font-size:.85rem;color:#5A6A7E;margin-bottom:.6rem}
 .cprice{font-size:1.4rem;font-weight:900;color:#0B1F3A;margin-bottom:1rem}
-.fb{background:#F4F3EF;border-radius:10px;padding:.8rem 1rem;margin-top:.5rem}
-.fl{font-size:.75rem;color:#5A6A7E;margin-bottom:.4rem;display:flex;justify-content:space-between}
-.fslider{width:100%;-webkit-appearance:none;appearance:none;height:5px;background:#E0DEDA;border-radius:3px;outline:none;cursor:pointer}
-.fslider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#C9A84C;cursor:pointer;border:2px solid #0B1F3A}
-.frow{display:flex;justify-content:space-between;align-items:center;margin-top:.5rem}
-.fpmt{font-size:1.15rem;font-weight:900;color:#C9A84C}
 
+
+
+
+
+
+
+
+.monthly-badge{display:inline-flex;align-items:center;gap:4px;background:#F0FFF4;border:1px solid #C6F6D5;color:#1A7A4A;padding:5px 12px;border-radius:8px;font-size:.8rem;font-weight:700;margin-top:.3rem}
+.monthly-badge span{font-size:.7rem;color:#5A9A6A;font-weight:500}
 .cbadge{display:inline-block;background:#E8F5E9;color:#1A7A4A;padding:2px 10px;border-radius:20px;font-size:.75rem;font-weight:600;margin-top:.6rem;cursor:pointer}
 .loading{text-align:center;padding:4rem;font-size:1.2rem;color:#5A6A7E}
 
@@ -176,12 +179,7 @@ function T(price,months){
 
 function cS(id,d,e){e.stopPropagation();var s=CS[id];if(!s)return;s.i+=d;if(s.i<0)s.i=s.g.length-1;if(s.i>=s.g.length)s.i=0;document.getElementById('ci-'+id).src=s.g[s.i];var dots=document.querySelectorAll('.cd-'+id+' .cdt');for(var j=0;j<dots.length;j++)dots[j].className=j===s.i?'cdt on':'cdt'}
 
-function uC(id,pr,val){
-  var m=parseInt(val),p=P(pr,m),t=T(pr,m);
-  document.getElementById('fp-'+id).innerHTML=F(p)+' \u20AA / \u05D7\u05D5\u05D3\u05E9';
-  document.getElementById('fm-'+id).innerHTML=m===1?'\u05EA\u05E9\u05DC\u05D5\u05DD \u05D0\u05D7\u05D3':m+' \u05D7\u05D5\u05D3\u05E9\u05D9\u05DD';
-  
-}
+
 
 
 function toggleTip(id){var el=document.getElementById(id);if(!el)return;var isOpen=el.classList.contains('show');document.querySelectorAll('.info-tip.show').forEach(function(t){t.classList.remove('show')});if(!isOpen)el.classList.add('show')}
@@ -213,7 +211,7 @@ db.ref('cars').on('value',function(snap){
     h+='<div class="cmeta">'+(car.year||'')+' \u00B7 '+(car.engine||'')+' \u00B7 '+F(car.km||0)+' \u05E7"\u05DE</div>';
     h+='<div class="cprice">'+F(pr)+' \u20AA</div>';
     h+='<div class="fb"><div class="fl"><span>\u05DE\u05D9\u05DE\u05D5\u05DF \u05D7\u05D5\u05D3\u05E9\u05D9</span><span id="fm-'+id+'">'+dm+' \u05D7\u05D5\u05D3\u05E9\u05D9\u05DD</span></div>';
-    h+='<input type="range" min="1" max="60" value="'+dm+'" class="fslider" onclick="event.stopPropagation()" oninput="uC(\''+id+'\','+pr+',this.value)">';
+    h+='<input type="range" min="1" max="60" value="'+dm+'" "uC(\''+id+'\','+pr+',this.value)">';
     h+='<div class="frow"><div class="fpmt" id="fp-'+id+'">'+F(dp)+' \u20AA / \u05D7\u05D5\u05D3\u05E9</div></div></div>';
     var seed=((dayNum*31+i*17+7)%400)+150;var views=seed; h+='<div class="cbadge">\u05DC\u05D7\u05E5 \u05DC\u05E4\u05E8\u05D8\u05D9\u05DD</div>'; h+='<div class="viewers"><span class="viewers-dot"></span>'+views+' \u05E6\u05E4\u05D5 \u05D1\u05E8\u05DB\u05D1 \u05D4\u05D9\u05D5\u05DD</div>';
     h+='<div class="info-wrap"><button class="info-btn" onclick="event.stopPropagation();toggleTip(\'tip-'+id+'\')">i</button>';
